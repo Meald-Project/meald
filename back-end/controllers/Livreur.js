@@ -1,7 +1,5 @@
 const {Livreur}=require('../models/livreur')
 
-
-
 //Creer un livreur 
 const createLivreur=async(req,res)=>{
     try{
@@ -12,10 +10,21 @@ const createLivreur=async(req,res)=>{
     }
 }
 
+
 //Afficher les informations du livreur par son nom
 const getLivreur=async(req,res)=>{
     try{
         const result=await Livreur.findAll({attributes:["nom"]})
+        res.json(result)
+    } catch (error){
+        res.send(error)
+    }
+}
+
+//Afficher les informations du livreur par sa localisation
+const getAllLivreurs=async(req,res)=>{
+    try{
+        const result=await Restaurant.findAll()
         res.json(result)
     } catch (error){
         res.send(error)
@@ -56,7 +65,7 @@ const updateLivreur=async(req,res)=>{
     }
 }
 
-export default {createLivreur,getLivreur,getLivreurByLocation,deleteLivreur,updateLivreur}
+export default {createLivreur,getLivreur,getLivreurByLocation,deleteLivreur,updateLivreur,getAllLivreurs}
 
 
 

@@ -13,7 +13,17 @@ const createClient=async(req,res)=>{
 //Afficher les informations du Client par son nom
 const getClient=async(req,res)=>{
     try{
-        const result=await Client.findAll({attributes:["nom"]})
+        const result=await Client.findAll({attributes:["nom","client_id"]})
+        res.json(result)
+    } catch (error){
+        res.send("error occured",error)
+    }
+}
+
+//Afficher les informations du Client par son nom
+const getAllClients=async(req,res)=>{
+    try{
+        const result=await Client.findAll()
         res.json(result)
     } catch (error){
         res.send(error)
@@ -34,7 +44,7 @@ const getClientByLocation=async(req,res)=>{
 const deleteClient=async(req,res)=>{
     try{
         let id=req.params.id
-        const result=await Client.destroy({where:{Client_id:id}})
+        const result=await Client.destroy({where:{client_id:id}})
         res.json(result)
     }
     catch(error){
@@ -46,7 +56,7 @@ const deleteClient=async(req,res)=>{
 const updateClient=async(req,res)=>{
     try{
         let id=req.params.id
-        const result=await Client.update(req.body,{where:{Client_id:id}})
+        const result=await Client.update(req.body,{where:{client_id:id}})
         res.json(result)
     }
     catch(error){
@@ -54,7 +64,7 @@ const updateClient=async(req,res)=>{
     }
 }
 
-export default {createClient,getClient,getClientByLocation,deleteClient,updateClient}
+export default {createClient,getClient,getClientByLocation,deleteClient,updateClient,getAllClients}
 
 
 
