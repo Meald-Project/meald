@@ -2,31 +2,34 @@ const { DataTypes } = require("sequelize");
 const sequelize = require("../config");
 
 const Article = sequelize.define(
-  "article",
+  "Article",
   {
-    // Définition des colonnes du modèle
     article_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
     nom: {
       type: DataTypes.STRING(255),
-      allowNull: false,
+      allowNull: true,
     },
     prix: {
       type: DataTypes.DECIMAL(10, 2),
-      allowNull: false,
+      allowNull: true,
     },
     description: {
       type: DataTypes.STRING(225),
       allowNull: true,
     },
+    categories_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
   },
   {
-    // Options supplémentaires du modèle
-    tableName: "articles", // Nom de la table dans la base de données
-    timestamps: false, // Désactiver les timestamps par défaut
+    tableName: "articles",
+    timestamps: false,
   }
 );
 

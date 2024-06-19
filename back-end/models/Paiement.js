@@ -1,11 +1,12 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config");
 
-const Paiement = sequelize.define(
-  "Paiement",
+const Payment = sequelize.define(
+  "Payment",
   {
     payment_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -31,8 +32,9 @@ const Paiement = sequelize.define(
     },
   },
   {
-    tableName: "paiements",
+    tableName: "paiments",
+    timestamps: false,
   }
 );
 
-module.exports = Paiement;
+module.exports = Payment;

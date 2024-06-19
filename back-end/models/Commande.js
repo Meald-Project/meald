@@ -6,6 +6,7 @@ const Commande = sequelize.define(
   {
     commande_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -48,6 +49,7 @@ const Commande = sequelize.define(
   },
   {
     tableName: "commandes",
+    timestamps: false,
   }
 );
 

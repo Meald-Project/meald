@@ -17,13 +17,14 @@ const DepotLivreur = sequelize.define(
       type: DataTypes.STRING(45),
       allowNull: true,
     },
-    livreur_id: {
+    liveurs_livreur_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
   },
   {
     tableName: "depot_livreur",
+    timestamps: false,
   }
 );
 

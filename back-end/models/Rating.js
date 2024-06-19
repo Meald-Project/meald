@@ -6,6 +6,7 @@ const Rating = sequelize.define(
   {
     rating_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -28,6 +29,7 @@ const Rating = sequelize.define(
   },
   {
     tableName: "ratings",
+    timestamps: false,
   }
 );
 
