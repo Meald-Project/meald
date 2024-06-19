@@ -1,5 +1,17 @@
-const {createArticle,getArticle,getArticleByLocation,deleteArticle,updateArticle} =require('../controllers/Article')
-const ArticleR=express.Router()
+const express = require('express');
+const router = express.Router();
+const {
+    createArticle,
+    getAllArticles,
+    getArticleById,
+    updateArticle,
+    deleteArticle
+} = require('../controllers/Article');
 
-ArticleR.post("/article/create",createArticle())
-ArticleR.get("/article/")
+router.post('/', createArticle);
+router.get('/', getAllArticles);
+router.get('/:id', getArticleById);
+router.put('/:id', updateArticle);
+router.delete('/:id', deleteArticle);
+
+module.exports = router;

@@ -1,14 +1,15 @@
-const sequelize = require("./config");
+const sequelize = require("../config/config");
 const Article = require("./Articles");
 const Client = require("./Client");
 const Livreur = require("./livreur");
 const Commande = require("./Commande");
-const Paiement = require("./Paiement");
+const Payment = require("./Paiement");
 const Restaurant = require("./Restaurant");
 const Rating = require("./Rating");
 const ArticleCommande = require("./ArticleCommande");
 const DepotLivreur = require("./DepotLivreur");
 const User =require("./User")
+const Category =require('./Categories')
 // Importer tous les modèles ici et définir les relations
 
 // User - Livreur association
