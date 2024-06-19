@@ -13,28 +13,28 @@ const createCommande=async(req,res)=>{
 //Afficher les informations du Commande par son nom
 const getCommande=async(req,res)=>{
     try{
-        const result=await Commande.findAll({attributes:["nom"]})
+        const result=await Commande.findAll({attributes:["commande_id"]})
+        res.json(result)
+    } catch (error){
+        res.send(error)
+    }
+}
+//Afficher les informations du Commande par son nom
+const getAllCommandes=async(req,res)=>{
+    try{
+        const result=await Commande.findAll()
         res.json(result)
     } catch (error){
         res.send(error)
     }
 }
 
-//Afficher les informations du Commande par sa localisation
-const getCommandeByLocation=async(req,res)=>{
-    try{
-        const result=await Commande.findAll({attributes:["location"]})
-        res.json(result)
-    } catch (error){
-        res.send(error)
-    }
-}
 
 //Effacer les informations du Commande par son identité
 const deleteCommande=async(req,res)=>{
     try{
         let id=req.params.id
-        const result=await Commande.destroy({where:{Commande_id:id}})
+        const result=await Commande.destroy({where:{commande_id:id}})
         res.json(result)
     }
     catch(error){
@@ -46,7 +46,7 @@ const deleteCommande=async(req,res)=>{
 const updateCommande=async(req,res)=>{
     try{
         let id=req.params.id
-        const result=await Commande.update(req.body,{where:{Commande_id:id}})
+        const result=await Commande.update(req.body,{where:{commande_id:id}})
         res.json(result)
     }
     catch(error){
@@ -54,7 +54,7 @@ const updateCommande=async(req,res)=>{
     }
 }
 
-export default {createCommande,getCommande,getCommandeByLocation,deleteCommande,updateCommande}
+export default {createCommande,getCommande,getAllCommandes,deleteCommande,updateCommande}
 
 
 

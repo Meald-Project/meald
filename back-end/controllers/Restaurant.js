@@ -10,6 +10,16 @@ const createRestaurant=async(req,res)=>{
     }
 }
 
+//Afficher tous les Restaurants
+const getAllRestaurants=async(req,res)=>{
+    try{
+        const result=await Restaurant.findAll()
+        res.json(result)
+    } catch (error){
+        res.send(error)
+    }
+}
+
 //Afficher les informations du Restaurant par son nom
 const getRestaurant=async(req,res)=>{
     try{
@@ -34,7 +44,7 @@ const getRestaurantByLocation=async(req,res)=>{
 const deleteRestaurant=async(req,res)=>{
     try{
         let id=req.params.id
-        const result=await Restaurant.destroy({where:{Restaurant_id:id}})
+        const result=await Restaurant.destroy({where:{restaurant_id:id}})
         res.json(result)
     }
     catch(error){
@@ -46,7 +56,7 @@ const deleteRestaurant=async(req,res)=>{
 const updateRestaurant=async(req,res)=>{
     try{
         let id=req.params.id
-        const result=await Restaurant.update(req.body,{where:{Restaurant_id:id}})
+        const result=await Restaurant.update(req.body,{where:{restaurant_id:id}})
         res.json(result)
     }
     catch(error){
@@ -54,7 +64,7 @@ const updateRestaurant=async(req,res)=>{
     }
 }
 
-export default {createRestaurant,getRestaurant,getRestaurantByLocation,deleteRestaurant,updateRestaurant}
+export default {createRestaurant,getRestaurant,getRestaurantByLocation,deleteRestaurant,updateRestaurant,getAllRestaurants}
 
 
 
