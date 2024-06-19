@@ -1,50 +1,56 @@
-const {ArticleCommande}=require('../models/ArticleCommande')
+const Article =require('../models/Articles')
+const Commande =require('../models/Commande')
+const ArticleCommande=require('../models/ArticleCommande')
 
-//Creer un ArticleCommande 
-const createArticleCommande=async(req,res)=>{
-    try{
-        const result=await ArticleCommande.create(req.body)
-        res.json(result)
-    } catch (error){
-        res.send(error)
+
+// Créer un article de commande
+const createArticleCommande = async (req, res) => {
+    try {
+        const result = await ArticleCommande.create(req.body);
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Afficher les informations du ArticleCommande par son identité
-const getArticleCommande=async(req,res)=>{
-    try{
-        const result=await ArticleCommande.findAll({attributes:["article_id"]})
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// Obtenir tous les articles de commande
+const getAllArticleCommandes = async (req, res) => {
+    try {
+        const result = await ArticleCommande.findAll({ include: [Article, Commande] });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Effacer les informations du ArticleCommande par son identité
-const deleteArticleCommande=async(req,res)=>{
-    try{
-        let id=req.params.id
-        const result=await ArticleCommande.destroy({where:{articleCommande_id:id}})
-        res.json(result)
+// Obtenir un article de commande par ID
+const getArticleCommandeById = async (req, res) => {
+    try {
+        const result = await ArticleCommande.findByPk(req.params.id, { include: [Article, Commande] });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-    catch(error){
-        res.send(error)
+};
+
+// Mettre à jour un article de commande par ID
+const updateArticleCommande = async (req, res) => {
+    try {
+        const result = await ArticleCommande.update(req.body, { where: { article_id: req.params.id } });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Modifier les informations du ArticleCommande 
-const updateArticleCommande=async(req,res)=>{
-    try{
-        let id=req.params.id
-        const result=await ArticleCommande.update(req.body,{where:{articleCommande_id:id}})
-        res.json(result)
+// Supprimer un article de commande par ID
+const deleteArticleCommande = async (req, res) => {
+    try {
+        const result = await ArticleCommande.destroy({ where: { article_id: req.params.id } });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-    catch(error){
-        res.send(error)
-    }
-}
+};
 
-export default {createArticleCommande,getArticleCommande,deleteArticleCommande,updateArticleCommande}
-
-
-
+module.exports = { createArticleCommande, getAllArticleCommandes, getArticleCommandeById, updateArticleCommande, deleteArticleCommande };

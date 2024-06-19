@@ -1,70 +1,55 @@
-const {Client}=require('../models/Client')
+const Client =require('../models/Client')
+const Commande =require('../models/Commande')
+const  User = require('../models/User');
 
-//Creer un Client 
-const createClient=async(req,res)=>{
-    try{
-        const result=await Client.create(req.body)
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// Créer un client
+const createClient = async (req, res) => {
+    try {
+        const result = await Client.create(req.body);
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Afficher les informations du Client par son nom
-const getClient=async(req,res)=>{
-    try{
-        const result=await Client.findAll({attributes:["nom","client_id"]})
-        res.json(result)
-    } catch (error){
-        res.send("error occured",error)
+// Obtenir tous les clients
+const getAllClients = async (req, res) => {
+    try {
+        const result = await Client.findAll({ include: [User] });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Afficher les informations du Client par son nom
-const getAllClients=async(req,res)=>{
-    try{
-        const result=await Client.findAll()
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// Obtenir un client par ID
+const getClientById = async (req, res) => {
+    try {
+        const result = await Client.findByPk(req.params.id, { include: [User, Commande] });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Afficher les informations du Client par sa localisation
-const getClientByLocation=async(req,res)=>{
-    try{
-        const result=await Client.findAll({attributes:["location"]})
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// Mettre à jour un client par ID
+const updateClient = async (req, res) => {
+    try {
+        const result = await Client.update(req.body, { where: { client_id: req.params.id } });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Effacer les informations du Client par son identité
-const deleteClient=async(req,res)=>{
-    try{
-        let id=req.params.id
-        const result=await Client.destroy({where:{client_id:id}})
-        res.json(result)
+// Supprimer un client par ID
+const deleteClient = async (req, res) => {
+    try {
+        const result = await Client.destroy({ where: { client_id: req.params.id } });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-    catch(error){
-        res.send(error)
-    }
-}
+};
 
-//Modifier les informations du Client 
-const updateClient=async(req,res)=>{
-    try{
-        let id=req.params.id
-        const result=await Client.update(req.body,{where:{client_id:id}})
-        res.json(result)
-    }
-    catch(error){
-        res.send(error)
-    }
-}
-
-export default {createClient,getClient,getClientByLocation,deleteClient,updateClient,getAllClients}
-
-
-
+module.exports = { createClient, getAllClients, getClientById, updateClient, deleteClient };

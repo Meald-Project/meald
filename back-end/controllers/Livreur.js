@@ -1,71 +1,54 @@
-const {Livreur}=require('../models/livreur')
+const Livreur= require('../models/livreur');
+const  User = require('../models/User');
 
-//Creer un livreur 
-const createLivreur=async(req,res)=>{
-    try{
-        const result=await Livreur.create(req.body)
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// Créer un livreur
+const createLivreur = async (req, res) => {
+    try {
+        const result = await Livreur.create(req.body);
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-
-//Afficher les informations du livreur par son nom
-const getLivreur=async(req,res)=>{
-    try{
-        const result=await Livreur.findAll({attributes:["nom"]})
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// Obtenir tous les livreurs
+const getAllLivreurs = async (req, res) => {
+    try {
+        const result = await Livreur.findAll({ include: [User] });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Afficher les informations du livreur par sa localisation
-const getAllLivreurs=async(req,res)=>{
-    try{
-        const result=await Restaurant.findAll()
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// Obtenir un livreur par ID
+const getLivreurById = async (req, res) => {
+    try {
+        const result = await Livreur.findByPk(req.params.id, { include: [User] });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Afficher les informations du livreur par sa localisation
-const getLivreurByLocation=async(req,res)=>{
-    try{
-        const result=await Livreur.findAll({attributes:["location"]})
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// Mettre à jour un livreur par ID
+const updateLivreur = async (req, res) => {
+    try {
+        const result = await Livreur.update(req.body, { where: { livreur_id: req.params.id } });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Effacer les informations du livreur par son identité
-const deleteLivreur=async(req,res)=>{
-    try{
-        let id=req.params.id
-        const result=await Livreur.destroy({where:{livreur_id:id}})
-        res.json(result)
+// Supprimer un livreur par ID
+const deleteLivreur = async (req, res) => {
+    try {
+        const result = await Livreur.destroy({ where: { livreur_id: req.params.id } });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-    catch(error){
-        res.send(error)
-    }
-}
+};
 
-//Modifier les informations du livreur 
-const updateLivreur=async(req,res)=>{
-    try{
-        let id=req.params.id
-        const result=await Livreur.update(req.body,{where:{livreur_id:id}})
-        res.json(result)
-    }
-    catch(error){
-        res.send(error)
-    }
-}
-
-export default {createLivreur,getLivreur,getLivreurByLocation,deleteLivreur,updateLivreur,getAllLivreurs}
-
-
-
+module.exports = { createLivreur, getAllLivreurs, getLivreurById, updateLivreur, deleteLivreur };
