@@ -13,7 +13,7 @@ const createArticleCommande=async(req,res)=>{
 //Afficher les informations du ArticleCommande par son identité
 const getArticleCommande=async(req,res)=>{
     try{
-        const result=await ArticleCommande.findAll({attributes:["article_id"]})
+        const result=await ArticleCommande.findAll({ where:{article_id:id}})
         res.json(result)
     } catch (error){
         res.send(error)

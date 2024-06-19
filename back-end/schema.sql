@@ -18,50 +18,36 @@ CREATE SCHEMA IF NOT EXISTS `meald` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb
 USE `meald` ;
 
 -- -----------------------------------------------------
--- Table `meald`.`liveurs`
+-- Table `meald`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `meald`.`liveurs` (
-  `livreur_id` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(255) NULL,
-  `phone` VARCHAR(20) NULL,
-  `location` VARCHAR(255) NULL,
-  `email` VARCHAR(255) NULL,
+CREATE TABLE IF NOT EXISTS `meald`.`user` (
+  `user_id` INT NOT NULL,
+  `nom` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
   `motdepasse` VARCHAR(45) NULL,
+  `addresse` VARCHAR(255) NULL,
+  `telephone` VARCHAR(255) NULL,
+  `role` VARCHAR(45) NULL,
+  PRIMARY KEY (`user_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `meald`.`livreurs`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `meald`.`livreurs` (
+  `livreur_id` INT NOT NULL AUTO_INCREMENT,
   `matricule` VARCHAR(55) NULL,
   `compte_bancaire` VARCHAR(50) NULL,
-  PRIMARY KEY (`livreur_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `meald`.`articles`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `meald`.`articles` (
-  `article_id` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(255) NOT NULL,
-  `prix` DECIMAL(10,2) NOT NULL,
-  `description` VARCHAR(225) NULL,
-  PRIMARY KEY (`article_id`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
-
-
--- -----------------------------------------------------
--- Table `meald`.`clients`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `meald`.`clients` (
-  `client_id` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(255) NULL,
-  `email` VARCHAR(255) NULL,
-  `motdepasse` VARCHAR(255) NULL,
-  `telephone` VARCHAR(20) NULL,
-  `addresse` VARCHAR(200) NULL,
-  `mode_de_payement` VARCHAR(50) NULL,
-  PRIMARY KEY (`client_id`),
-  UNIQUE INDEX `email` (`email` ASC) VISIBLE)
+  `user_user_id` INT NOT NULL,
+  `cin` VARCHAR(45) NULL,
+  PRIMARY KEY (`livreur_id`),
+  INDEX `fk_livreurs_user1_idx` (`user_user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_livreurs_user1`
+    FOREIGN KEY (`user_user_id`)
+    REFERENCES `meald`.`user` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -78,6 +64,63 @@ CREATE TABLE IF NOT EXISTS `meald`.`restaurants` (
   `email` VARCHAR(50) NULL,
   `mot_de_passe` VARCHAR(45) NULL,
   PRIMARY KEY (`restaurant_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `meald`.`categories`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `meald`.`categories` (
+  `categories_id` INT NOT NULL,
+  `nom` VARCHAR(45) NULL,
+  `restaurant_id` INT NOT NULL,
+  PRIMARY KEY (`categories_id`),
+  INDEX `fk_categories_restaurants1_idx` (`restaurant_id` ASC) VISIBLE,
+  CONSTRAINT `fk_categories_restaurants1`
+    FOREIGN KEY (`restaurant_id`)
+    REFERENCES `meald`.`restaurants` (`restaurant_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `meald`.`articles`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `meald`.`articles` (
+  `article_id` INT NOT NULL AUTO_INCREMENT,
+  `nom` VARCHAR(255) NULL,
+  `prix` DECIMAL(10,2) NULL,
+  `description` VARCHAR(225) NULL,
+  `categories_id` INT NOT NULL,
+  PRIMARY KEY (`article_id`),
+  INDEX `fk_articles_categories1_idx` (`categories_id` ASC) VISIBLE,
+  CONSTRAINT `fk_articles_categories1`
+    FOREIGN KEY (`categories_id`)
+    REFERENCES `meald`.`categories` (`categories_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+-- -----------------------------------------------------
+-- Table `meald`.`clients`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `meald`.`clients` (
+  `client_id` INT NOT NULL AUTO_INCREMENT,
+  `mode_de_payement` VARCHAR(50) NULL,
+  `user_user_id` INT NOT NULL,
+  PRIMARY KEY (`client_id`),
+  INDEX `fk_clients_user1_idx` (`user_user_id` ASC) VISIBLE,
+  CONSTRAINT `fk_clients_user1`
+    FOREIGN KEY (`user_user_id`)
+    REFERENCES `meald`.`user` (`user_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
@@ -109,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `meald`.`commandes` (
     REFERENCES `meald`.`restaurants` (`restaurant_id`),
   CONSTRAINT `fk_commandes_liveurs1`
     FOREIGN KEY (`livreur_id`)
-    REFERENCES `meald`.`liveurs` (`livreur_id`)
+    REFERENCES `meald`.`livreurs` (`livreur_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -165,7 +208,7 @@ COLLATE = utf8mb4_0900_ai_ci;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `meald`.`article_commande` (
   `article_id` INT NOT NULL,
-  `quanitÃ©` VARCHAR(45) NULL,
+  `quanité` VARCHAR(45) NULL,
   `prix` VARCHAR(45) NULL,
   `article_id` INT NOT NULL,
   `commande_id` INT NOT NULL,
@@ -197,34 +240,10 @@ CREATE TABLE IF NOT EXISTS `meald`.`depot_livreur` (
   INDEX `fk_depot_livreur_liveurs1_idx` (`liveurs_livreur_id` ASC) VISIBLE,
   CONSTRAINT `fk_depot_livreur_liveurs1`
     FOREIGN KEY (`liveurs_livreur_id`)
-    REFERENCES `meald`.`liveurs` (`livreur_id`)
+    REFERENCES `meald`.`livreurs` (`livreur_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `meald`.`menu`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `meald`.`menu` (
-  `restaurants_restaurant_id` INT NOT NULL,
-  `articles_article_id` INT NOT NULL,
-  PRIMARY KEY (`restaurants_restaurant_id`, `articles_article_id`),
-  INDEX `fk_restaurants_has_articles_articles1_idx` (`articles_article_id` ASC) VISIBLE,
-  INDEX `fk_restaurants_has_articles_restaurants1_idx` (`restaurants_restaurant_id` ASC) VISIBLE,
-  CONSTRAINT `fk_restaurants_has_articles_restaurants1`
-    FOREIGN KEY (`restaurants_restaurant_id`)
-    REFERENCES `meald`.`restaurants` (`restaurant_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_restaurants_has_articles_articles1`
-    FOREIGN KEY (`articles_article_id`)
-    REFERENCES `meald`.`articles` (`article_id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb4
-COLLATE = utf8mb4_0900_ai_ci;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
