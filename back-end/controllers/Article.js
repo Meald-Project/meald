@@ -11,7 +11,7 @@ const createArticle=async(req,res)=>{
 }
 
 //Afficher les informations du Article par son nom
-const getArticle=async(req,res)=>{
+const getOneArticle=async(req,res)=>{
     try{
         const result=await Article.findAll({attributes:["nom"]})
         res.json(result)
@@ -20,10 +20,10 @@ const getArticle=async(req,res)=>{
     }
 }
 
-//Afficher les informations du Article par sa localisation
-const getArticleByLocation=async(req,res)=>{
+//Afficher les informations du Article par son nom
+const getAllArticles=async(req,res)=>{
     try{
-        const result=await Article.findAll({attributes:["location"]})
+        const result=await Article.findAll()
         res.json(result)
     } catch (error){
         res.send(error)
@@ -34,7 +34,7 @@ const getArticleByLocation=async(req,res)=>{
 const deleteArticle=async(req,res)=>{
     try{
         let id=req.params.id
-        const result=await Article.destroy({where:{Article_id:id}})
+        const result=await Article.destroy({where:{article_id:id}})
         res.json(result)
     }
     catch(error){
@@ -46,7 +46,7 @@ const deleteArticle=async(req,res)=>{
 const updateArticle=async(req,res)=>{
     try{
         let id=req.params.id
-        const result=await Article.update(req.body,{where:{Article_id:id}})
+        const result=await Article.update(req.body,{where:{article_id:id}})
         res.json(result)
     }
     catch(error){
@@ -54,7 +54,7 @@ const updateArticle=async(req,res)=>{
     }
 }
 
-export default {createArticle,getArticle,getArticleByLocation,deleteArticle,updateArticle}
+export default {createArticle,getOneArticle,getAllArticles,deleteArticle,updateArticle}
 
 
 
