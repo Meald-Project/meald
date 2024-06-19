@@ -1,40 +1,43 @@
 const { DataTypes } = require("sequelize");
 const sequelize = require("../config/config");
 
-const Restaurant = sequelize.define(
-  "Restaurant",
+const User = sequelize.define(
+  "User",
   {
-    restaurant_id: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      autoIncrement: true,
       primaryKey: true,
     },
     nom: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-    },
-    address: {
-      type: DataTypes.STRING(255),
-      allowNull: true,
-    },
-    phone: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.STRING(45),
       allowNull: true,
     },
     email: {
-      type: DataTypes.STRING(50),
+      type: DataTypes.STRING(45),
       allowNull: true,
     },
-    mot_de_passe: {
+    motdepasse: {
+      type: DataTypes.STRING(45),
+      allowNull: true,
+    },
+    addresse: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    telephone: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    role: {
       type: DataTypes.STRING(45),
       allowNull: true,
     },
   },
   {
-    tableName: "restaurants",
+    tableName: "user",
     timestamps: false,
   }
 );
 
-module.exports = Restaurant;
+module.exports = User;

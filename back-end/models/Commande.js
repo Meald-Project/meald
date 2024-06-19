@@ -1,11 +1,12 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config");
+const sequelize = require("../config/config");
 
 const Commande = sequelize.define(
   "Commande",
   {
     commande_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -48,6 +49,7 @@ const Commande = sequelize.define(
   },
   {
     tableName: "commandes",
+    timestamps: false,
   }
 );
 
