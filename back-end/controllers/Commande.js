@@ -49,7 +49,7 @@ const deleteCommande = async (req, res) => {
     try {
         const result = await Commande.destroy({ where: { commande_id: req.params.id } });
         res.json(result);
-    } catch (error) {
+    } catch (error) { 
         res.send(error);
     }
 };

@@ -1,7 +1,9 @@
 const Restaurant =require('../models/Restaurant')
 const Category =require ('../models/Categories')
 const Commande =require('../models/Commande')
-// Create a restaurant
+const bcrypt = require('bcryptjs');
+
+// Creer un restaurant
 const createRestaurant = async (req, res) => {
     try {
         const result = await Restaurant.create(req.body);
@@ -11,7 +13,7 @@ const createRestaurant = async (req, res) => {
     }
 };
 
-// Get all restaurants
+// avoir tous les restaurants
 const getAllRestaurants = async (req, res) => {
     try {
         const result = await Restaurant.findAll();
@@ -21,7 +23,7 @@ const getAllRestaurants = async (req, res) => {
     }
 };
 
-// Get restaurant by ID
+// avoir un restaurant par ID
 const getRestaurantById = async (req, res) => {
     try {
         const result = await Restaurant.findByPk(req.params.id, {
@@ -33,17 +35,25 @@ const getRestaurantById = async (req, res) => {
     }
 };
 
-// Update restaurant by ID
+// modifier restaurant par ID
 const updateRestaurant = async (req, res) => {
     try {
+
+        if (req.body.mot_de_passe) {
+  
+            req.body.mot_de_passe = await bcrypt.hash(req.body.mot_de_passe, 10);
+        }
+
         const result = await Restaurant.update(req.body, { where: { restaurant_id: req.params.id } });
+
         res.json(result);
     } catch (error) {
-        res.send(error);
+        console.error("Update Restaurant Error:", error);
+        res.status(500).json({ error: 'Erreur serveur' });
     }
 };
 
-// Delete restaurant by ID
+// supprimer un restaurant par ID
 const deleteRestaurant = async (req, res) => {
     try {
         const result = await Restaurant.destroy({ where: { restaurant_id: req.params.id } });

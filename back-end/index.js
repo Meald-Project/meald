@@ -14,6 +14,7 @@ const paymentRouter = require('./routes/PaiementR.js');
 const ratingRouter = require('./routes/RaitingR.js');
 const depotLivreurRouter = require('./routes/DepotLivreurR.js');
 const articleCommandeRouter = require('./routes/AriticleCommandeR.js');
+const AuthRouter = require('./routes/Auth.js');
 
 app.use(cors());
 app.use(express.json());
@@ -31,6 +32,7 @@ app.use('/api/payments', paymentRouter);
 app.use('/api/ratings', ratingRouter);
 app.use('/api/depot-livreurs', depotLivreurRouter);
 app.use('/api/article-commandes', articleCommandeRouter);
+app.use('/api/auth', AuthRouter);
 
 const PORT = 3000;
 
