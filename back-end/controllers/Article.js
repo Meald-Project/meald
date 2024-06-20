@@ -1,58 +1,54 @@
-const { Article } = require('../models/Article');
+const Article =require('../models/Articles')
+const Category =require("../models/Categories")
 
-// creer un Article
+// Créer un article
 const createArticle = async (req, res) => {
     try {
         const result = await Article.create(req.body);
         res.json(result);
     } catch (error) {
-        res.status(500).send(error);
+        res.send(error);
     }
-}
+};
 
-// avoir les details d'un Article d'apres son nom
-const getOneArticle = async (req, res) => {
-    try {
-        const result = await Article.findAll({
-            where: { nom: req.params.nom }, 
-            attributes: ["nom"]  
-        });
-        res.json(result);
-    } catch (error) {
-        res.status(500).send(error);
-    }
-}
-
-// tous les Articles
+// Obtenir tous les articles
 const getAllArticles = async (req, res) => {
     try {
-        const result = await Article.findAll();
+        const result = await Article.findAll({ include: [Category] });
         res.json(result);
     } catch (error) {
-        res.status(500).send(error);
+        res.send(error);
     }
-}
+};
 
-// Effcer Article 
-const deleteArticle = async (req, res) => {
+// Obtenir un article par ID
+const getArticleById = async (req, res) => {
     try {
-        let id = req.params.id;
-        const result = await Article.destroy({ where: { article_id: id } });
+        const result = await Article.findByPk(req.params.id, { include: [Category] });
         res.json(result);
     } catch (error) {
-        res.status(500).send(error);
+        res.send(error);
     }
-}
+};
 
-// modifier Article 
+// Mettre à jour un article par ID
 const updateArticle = async (req, res) => {
     try {
-        let id = req.params.id;
-        const result = await Article.update(req.body, { where: { article_id: id } });
+        const result = await Article.update(req.body, { where: { article_id: req.params.id } });
         res.json(result);
     } catch (error) {
-        res.status(500).send(error);
+        res.send(error);
     }
-}
+};
 
-export default { createArticle, getOneArticle, getAllArticles, deleteArticle, updateArticle };
+// Supprimer un article par ID
+const deleteArticle = async (req, res) => {
+    try {
+        const result = await Article.destroy({ where: { article_id: req.params.id } });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
+    }
+};
+
+module.exports = { createArticle, getAllArticles, getArticleById, updateArticle, deleteArticle };

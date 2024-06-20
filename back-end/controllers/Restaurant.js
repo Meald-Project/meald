@@ -1,70 +1,66 @@
-const {Restaurant}=require('../models/Restaurant')
+const Restaurant =require('../models/Restaurant')
+const Category =require ('../models/Categories')
+const Commande =require('../models/Commande')
+const bcrypt = require('bcryptjs');
 
-//Creer un Restaurant 
-const createRestaurant=async(req,res)=>{
-    try{
-        const result=await Restaurant.create(req.body)
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// Creer un restaurant
+const createRestaurant = async (req, res) => {
+    try {
+        const result = await Restaurant.create(req.body);
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Afficher tous les Restaurants
-const getAllRestaurants=async(req,res)=>{
-    try{
-        const result=await Restaurant.findAll()
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// avoir tous les restaurants
+const getAllRestaurants = async (req, res) => {
+    try {
+        const result = await Restaurant.findAll();
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Afficher les informations du Restaurant par son nom
-const getRestaurant=async(req,res)=>{
-    try{
-        const result=await Restaurant.findAll({attributes:["nom"]})
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// avoir un restaurant par ID
+const getRestaurantById = async (req, res) => {
+    try {
+        const result = await Restaurant.findByPk(req.params.id, {
+            include: [Category, Commande]
+        });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-}
+};
 
-//Afficher les informations du Restaurant par sa localisation
-const getRestaurantByLocation=async(req,res)=>{
-    try{
-        const result=await Restaurant.findAll({attributes:["location"]})
-        res.json(result)
-    } catch (error){
-        res.send(error)
+// modifier restaurant par ID
+const updateRestaurant = async (req, res) => {
+    try {
+
+        if (req.body.mot_de_passe) {
+  
+            req.body.mot_de_passe = await bcrypt.hash(req.body.mot_de_passe, 10);
+        }
+
+        const result = await Restaurant.update(req.body, { where: { restaurant_id: req.params.id } });
+
+        res.json(result);
+    } catch (error) {
+        console.error("Update Restaurant Error:", error);
+        res.status(500).json({ error: 'Erreur serveur' });
     }
-}
+};
 
-//Effacer les informations du Restaurant par son identité
-const deleteRestaurant=async(req,res)=>{
-    try{
-        let id=req.params.id
-        const result=await Restaurant.destroy({where:{restaurant_id:id}})
-        res.json(result)
+// supprimer un restaurant par ID
+const deleteRestaurant = async (req, res) => {
+    try {
+        const result = await Restaurant.destroy({ where: { restaurant_id: req.params.id } });
+        res.json(result);
+    } catch (error) {
+        res.send(error);
     }
-    catch(error){
-        res.send(error)
-    }
-}
+};
 
-//Modifier les informations du Restaurant 
-const updateRestaurant=async(req,res)=>{
-    try{
-        let id=req.params.id
-        const result=await Restaurant.update(req.body,{where:{restaurant_id:id}})
-        res.json(result)
-    }
-    catch(error){
-        res.send(error)
-    }
-}
-
-export default {createRestaurant,getRestaurant,getRestaurantByLocation,deleteRestaurant,updateRestaurant,getAllRestaurants}
-
-
-
+module.exports = { createRestaurant, getAllRestaurants, getRestaurantById, updateRestaurant, deleteRestaurant };

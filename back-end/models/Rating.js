@@ -1,11 +1,12 @@
 const { DataTypes } = require("sequelize");
-const sequelize = require("../config");
+const sequelize = require("../config/config");
 
 const Rating = sequelize.define(
   "Rating",
   {
     rating_id: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       autoIncrement: true,
       primaryKey: true,
     },
@@ -28,6 +29,7 @@ const Rating = sequelize.define(
   },
   {
     tableName: "ratings",
+    timestamps: false,
   }
 );
 

@@ -1,10 +1,17 @@
-const {createLivreur,getLivreur,getLivreurByLocation,deleteLivreur,updateLivreur}=require("../controllers/Livreur");
-const livreurRouter=express.Router();
+const express = require('express');
+const router = express.Router();
+const {
+    createLivreur,
+    getAllLivreurs,
+    getLivreurById,
+    updateLivreur,
+    deleteLivreur
+} = require('../controllers/livreur');
 
-livreurRouter.post("/livreur/create",createLivreur());
-livreurRouter.get("/livreur/:name",getLivreur());
-livreurRouter.get("/livreur/:location",getLivreurByLocation());
-livreurRouter.delete("/livreur/:id",deleteLivreur());
-livreurRouter.put("/livreur/update/:id",updateLivreur());
+router.post('/', createLivreur);
+router.get('/', getAllLivreurs);
+router.get('/:id', getLivreurById);
+router.put('/:id', updateLivreur);
+router.delete('/:id', deleteLivreur);
 
-module.exports=livreurRouter;
+module.exports = router;
