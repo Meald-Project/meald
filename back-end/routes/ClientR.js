@@ -8,10 +8,10 @@ const {
     deleteClient
 } = require('../controllers/Client');
 
-router.post('/', createClient);
-router.get('/', getAllClients);
-router.get('/:id', getClientById);
-router.put('/:id', updateClient);
-router.delete('/:id', deleteClient);
+router.post('/client', createClient);
+router.get('/clients', getAllClients);
+router.get('/client/:id', getClientById);
+router.put('/client/:id', updateClient);
+router.delete('/client/:id', deleteClient);
 
 module.exports = router;

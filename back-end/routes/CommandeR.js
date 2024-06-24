@@ -8,10 +8,10 @@ const {
     deleteCommande
 } = require('../controllers/Commande');
 
-router.post('/', createCommande);
-router.get('/', getAllCommandes);
-router.get('/:id', getCommandeById);
-router.put('/:id', updateCommande);
-router.delete('/:id', deleteCommande);
+router.post('/commande', createCommande);
+router.get('/commandes', getAllCommandes);
+router.get('/commande/:id', getCommandeById);
+router.put('/commande/:id', updateCommande);
+router.delete('/commande/:id', deleteCommande);
 
 module.exports = router;
