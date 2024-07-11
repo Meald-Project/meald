@@ -1,9 +1,10 @@
-// main.dart
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'home_page.dart'; 
-import 'welcome_page.dart'; 
+import 'client/home_page.dart';
+import 'restaurant/home_page.dart';
+import 'livreur/home_page.dart';
+import 'update_profile.dart';
+import 'welcome_page.dart';
 import 'themes/theme_provider.dart';
 
 void main() {
@@ -22,11 +23,14 @@ class MyApp extends StatelessWidget {
       builder: (context, themeProvider, child) {
         return MaterialApp(
           title: 'Flutter App',
-          theme: themeProvider.currentTheme, 
-          initialRoute: '/', 
+          theme: themeProvider.currentTheme,
+          initialRoute: '/',
           routes: {
-            '/': (context) => WelcomePage(), 
-
+            '/': (context) => WelcomePage(),
+            '/update_Profile': (context) => UpdateProfile(),
+            '/homePage_client': (context) => HomePageClient(),
+            '/homePage_livreur': (context) => HomePageLivreur(),
+            '/homePage_restaurant': (context) => HomePageRestaurant(),
           },
         );
       },
