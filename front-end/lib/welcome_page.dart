@@ -4,10 +4,10 @@ import 'themes/theme_provider.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
-  _LoadingPageState1 createState() => _LoadingPageState1();
+  _LoadingPageState createState() => _LoadingPageState();
 }
 
-class _LoadingPageState1 extends State<WelcomePage> {
+class _LoadingPageState extends State<WelcomePage> {
   @override
   void initState() {
     super.initState();
@@ -181,7 +181,7 @@ class FirstPage extends StatelessWidget {
 
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home_page');
+                Navigator.push(context,_createRoute(FourthPage()));
               },
               child: Text(
                 'Skip this page',
@@ -302,7 +302,7 @@ class SecondPage extends StatelessWidget {
 
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home_page');
+              Navigator.push(context,_createRoute(FourthPage()));
               },
               child: Text(
                 'Skip this page',
@@ -423,7 +423,7 @@ class ThirdPage extends StatelessWidget {
             // Skip text centered and grey
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home_page');
+               Navigator.push(context,_createRoute(FourthPage()));
               },
               child: Text(
                 'Skip this page',
