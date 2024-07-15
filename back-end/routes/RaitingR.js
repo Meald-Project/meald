@@ -8,10 +8,10 @@ const {
     deleteRating
 } = require('../controllers/RatingC');
 
-router.post('/', createRating);
-router.get('/', getAllRatings);
-router.get('/:id', getRatingById);
-router.put('/:id', updateRating);
-router.delete('/:id', deleteRating);
+router.post('/rating', createRating);
+router.get('/ratings', getAllRatings);
+router.get('/rating/:id', getRatingById);
+router.put('/rating/:id', updateRating);
+router.delete('/rating/:id', deleteRating);
 
 module.exports = router;

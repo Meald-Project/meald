@@ -8,10 +8,10 @@ const {
     deletePayment
 } = require('../controllers/PaiementC');
 
-router.post('/', createPayment);
-router.get('/', getAllPayments);
-router.get('/:id', getPaymentById);
-router.put('/:id', updatePayment);
-router.delete('/:id', deletePayment);
+router.post('/payment', createPayment);
+router.get('/payments', getAllPayments);
+router.get('/payment/:id', getPaymentById);
+router.put('/payment/:id', updatePayment);
+router.delete('/payment/:id', deletePayment);
 
 module.exports = router;
