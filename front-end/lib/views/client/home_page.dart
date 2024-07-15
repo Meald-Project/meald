@@ -1,19 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart'; // Import carousel_slider package
+import 'package:carousel_slider/carousel_slider.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomePageClient(),
+    );
+  }
+}
 
 class HomePageClient extends StatefulWidget {
   @override
-  _LoadingPageState createState() => _LoadingPageState();
+  _HomePageClientState createState() => _HomePageClientState();
 }
 
-class _LoadingPageState extends State<HomePageClient> {
+class _HomePageClientState extends State<HomePageClient> {
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePageR()), // Create MaterialPageRoute here
+        MaterialPageRoute(builder: (context) => HomePageR()),
       );
     });
   }
@@ -23,7 +36,7 @@ class _LoadingPageState extends State<HomePageClient> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          'assets/images/Logo.gif', // Use Image.asset for local assets
+          '../images/Logo.gif', // Adjusted path for local assets
           height: 130,
           width: 130,
         ),
@@ -36,10 +49,12 @@ class HomePageR extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xFFF5F5F5), // Very light grey shade
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: 200.0,
+            pinned: true,
             flexibleSpace: FlexibleSpaceBar(
               background: Padding(
                 padding: EdgeInsets.all(20.0),
@@ -49,25 +64,23 @@ class HomePageR extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Left Section
                         Row(
                           children: [
                             GestureDetector(
                               onTap: () {
                                 // Handle slider icon click
-                                // Show slider content
                               },
                               child: Container(
-                                width: 50,
-                                height: 50,
+                                width: 28,
+                                height: 28,
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 164, 165, 165),
+                                  color: Color.fromARGB(255, 255, 255, 255),
                                   borderRadius: BorderRadius.circular(25),
                                 ),
                                 child: Icon(
                                   Icons.menu,
                                   color: Colors.white,
-                                  size: 30,
+                                  size: 15,
                                 ),
                               ),
                             ),
@@ -78,7 +91,7 @@ class HomePageR extends StatelessWidget {
                                 Text(
                                   'Bonjour, Assem',
                                   style: TextStyle(
-                                    fontSize: 24,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -86,7 +99,7 @@ class HomePageR extends StatelessWidget {
                                 Text(
                                   'assem@gmail.com',
                                   style: TextStyle(
-                                    fontSize: 14,
+                                    fontSize: 11,
                                     color: Colors.grey,
                                   ),
                                 ),
@@ -94,11 +107,9 @@ class HomePageR extends StatelessWidget {
                             ),
                           ],
                         ),
-                        // Right Section
                         GestureDetector(
                           onTap: () {
                             // Handle cart icon click
-                            // Navigate to cart page or show cart content
                           },
                           child: Container(
                             width: 50,
@@ -116,13 +127,43 @@ class HomePageR extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
-                    // Additional Widgets and Content
+                    SizedBox(height: 10), // Reduced space here
+                    // Search bar
+                    Container(
+                      width: double.infinity,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 237, 234, 234),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: TextField(
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: 'Search...',
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                ),
+                              ),
+                            ),
+                            IconButton(
+                              icon: Icon(Icons.search),
+                              onPressed: () {
+                                // Handle search button click
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 20), // Reduced space here
                   ],
                 ),
               ),
             ),
-            pinned: true,
           ),
           SliverList(
             delegate: SliverChildListDelegate([
@@ -131,70 +172,71 @@ class HomePageR extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Fixed Title
                     Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.star,
-                          color: Colors.amber,
-                          size: 24,
+                        Container(
+                          width: 40,
+                          height: 40,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.amber,
+                          ),
+                          child: Icon(
+                            Icons.star,
+                            color: Colors.white,
+                            size: 24,
+                          ),
                         ),
                         SizedBox(width: 10),
                         Text(
-                          'Featured Carousel',
+                          'Search Your ',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Spacer(),
-                        TextButton(
-                          onPressed: () {
-                            // Handle "see more" button press
-                          },
-                          child: Text(
-                            'See more',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    SizedBox(height: 10), // Reduced space here
 
                     // CarouselSlider
                     CarouselSlider(
                       items: [
                         _carouselItem(
-                          imageUrl: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.rvSWtRd_oPRTwDoTCmkP5gAAAA%26pid%3DApi&f=1&ipt=4eff9a5d7d22249208e9472e985283aee53c7c785e9265810c51f0f39de585bc&ipo=images",
+                          imageUrl:
+                              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.rvSWtRd_oPRTwDoTCmkP5gAAAA%26pid%3DApi&f=1&ipt=4eff9a5d7d22249208e9472e985283aee53c7c785e9265810c51f0f39de585bc&ipo=images",
                           title: 'Beach Paradise',
                           subtitle: 'Relax and enjoy the view',
                         ),
                         _carouselItem(
-                          imageUrl: "http://allpicts.in/wp-content/uploads/2018/03/Natural-Images-HD-1080p-Download-with-Keyhole-Arch-at-Pfeiffer-Beach.jpg",
+                          imageUrl:
+                              "http://allpicts.in/wp-content/uploads/2018/03/Natural-Images-HD-1080p-Download-with-Keyhole-Arch-at-Pfeiffer-Beach.jpg",
                           title: 'Scenic Arch',
                           subtitle: 'Nature’s beauty at its finest',
                         ),
                         _carouselItem(
-                          imageUrl: "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.hdwallpaper.nu%2Fwp-content%2Fuploads%2F2015%2F09%2Ftropical_beach_blue_summer_sea_emerald_sand_hd-wallpaper-1701606.jpg&f=1&nofb=1&ipt=6eb95fc58404f4ef582fa656596438a8313acf27a78c036f2657e601cba7be53&ipo=images",
+                          imageUrl:
+                              "https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.hdwallpaper.nu%2Fwp-content%2Fuploads%2F2015%2F09%2Ftropical_beach_blue_summer_sea_emerald_sand_hd-wallpaper-1701606.jpg&f=1&nofb=1&ipt=6eb95fc58404f4ef582fa656596438a8313acf27a78c036f2657e601cba7be53&ipo=images",
                           title: 'Tropical Beach',
                           subtitle: 'Feel the tropical breeze',
                         ),
                         _carouselItem(
-                          imageUrl: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OjNHJL6A-Lzw_jLJfFgtMwHaEK%26pid%3DApi&f=1&ipt=9f19fe8349e515790867030de18da3ba6f4cae0548d5195b66004453fb7916d0&ipo=images",
+                          imageUrl:
+                              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.OjNHJL6A-Lzw_jLJfFgtMwHaEK%26pid%3DApi&f=1&ipt=9f19fe8349e515790867030de18da3ba6f4cae0548d5195b66004453fb7916d0&ipo=images",
                           title: 'Majestic Sunset',
                           subtitle: 'A beautiful evening view',
                         ),
                         _carouselItem(
-                          imageUrl: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.bircyBDvJOcKd3mkR6ramwHaEK%26pid%3DApi&f=1&ipt=5909f3cdfdc42fb7effd2baabc4312074c2866f899860a96cf501dc9d1f51cf4&ipo=images",
+                          imageUrl:
+                              "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.bircyBDvJOcKd3mkR6ramwHaEK%26pid%3DApi&f=1&ipt=5909f3cdfdc42fb7effd2baabc4312074c2866f899860a96cf501dc9d1f51cf4&ipo=images",
                           title: 'Mountain View',
                           subtitle: 'Explore the mountains',
                         ),
                       ],
                       options: CarouselOptions(
-                        height: 250.0, // Increased height to accommodate title and subtitle
+                        height: 250.0,
                         enlargeCenterPage: true,
                         autoPlay: true,
                         aspectRatio: 16 / 9,
@@ -214,8 +256,11 @@ class HomePageR extends StatelessWidget {
     );
   }
 
-  // Helper widget to create carousel items with title and subtitle
-  Widget _carouselItem({required String imageUrl, required String title, required String subtitle}) {
+  Widget _carouselItem({
+    required String imageUrl,
+    required String title,
+    required String subtitle,
+  }) {
     return Container(
       margin: EdgeInsets.all(6.0),
       decoration: BoxDecoration(
@@ -229,7 +274,7 @@ class HomePageR extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Container(
-            color: Colors.black.withOpacity(0.5), // Dark overlay
+            color: Colors.black.withOpacity(0.5),
             padding: EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

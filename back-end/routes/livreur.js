@@ -8,10 +8,10 @@ const {
     deleteLivreur
 } = require('../controllers/livreur');
 
-router.post('/', createLivreur);
-router.get('/', getAllLivreurs);
-router.get('/:id', getLivreurById);
-router.put('/:id', updateLivreur);
-router.delete('/:id', deleteLivreur);
+router.post('/livreur', createLivreur);
+router.get('/livreurs', getAllLivreurs);
+router.get('/livreur/:id', getLivreurById);
+router.put('/livreur/:id', updateLivreur);
+router.delete('/livreur/:id', deleteLivreur);
 
 module.exports = router;
