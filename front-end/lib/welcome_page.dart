@@ -11,7 +11,7 @@ class _LoadingPageState1 extends State<WelcomePage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration(milliseconds: 4590), () {
+    Future.delayed(const Duration(milliseconds: 4590), () {
       Navigator.pushReplacement(
         context,
         _createRoute(ThemeSelectionPage()),
