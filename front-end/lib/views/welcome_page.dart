@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'themes/theme_provider.dart';
+import '../widgets/themes/theme_provider.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
-  _LoadingPageState1 createState() => _LoadingPageState1();
+  _LoadingPageState createState() => _LoadingPageState();
 }
 
-class _LoadingPageState1 extends State<WelcomePage> {
+class _LoadingPageState extends State<WelcomePage> {
   @override
   void initState() {
     super.initState();
@@ -24,7 +24,7 @@ class _LoadingPageState1 extends State<WelcomePage> {
     return Scaffold(
       body: Center(
         child: Image.network(
-          '../images/Logo.gif',
+          '../assets/Logo.gif',
           height: 130,
           width: 130,
         ),
@@ -124,7 +124,7 @@ class FirstPage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               children: [
                 Image.network(
-                  '../images/User.gif',
+                  '../assets/User.gif',
                   height: 250,
                   width: 250,
                   fit: BoxFit.cover,
@@ -181,7 +181,7 @@ class FirstPage extends StatelessWidget {
 
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home_page');
+                Navigator.push(context,_createRoute(FourthPage()));
               },
               child: Text(
                 'Skip this page',
@@ -235,7 +235,7 @@ class SecondPage extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: Image.network(
-                    '../images/Location.gif',
+                    '../assets/Location.gif',
                     width: 190,
                     fit: BoxFit.cover,
                   ),
@@ -302,7 +302,7 @@ class SecondPage extends StatelessWidget {
 
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home_page');
+              Navigator.push(context,_createRoute(FourthPage()));
               },
               child: Text(
                 'Skip this page',
@@ -356,7 +356,7 @@ class ThirdPage extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(bottom: 10),
                   child: Image.network(
-                    '../images/Driver.gif',
+                    '../assets/Driver.gif',
                     height: 250,
                     width: 250,
                     fit: BoxFit.cover,
@@ -423,7 +423,7 @@ class ThirdPage extends StatelessWidget {
             // Skip text centered and grey
             TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home_page');
+               Navigator.push(context,_createRoute(FourthPage()));
               },
               child: Text(
                 'Skip this page',
