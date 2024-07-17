@@ -7,7 +7,7 @@ import 'views/update_profile.dart';
 import 'views/welcome_page.dart';
 import 'views/login.dart';
 import '../widgets/themes/theme_provider.dart';
-
+import 'views/signup.dart';
 void main() {
   runApp(
     ChangeNotifierProvider<ThemeProvider>(
@@ -23,11 +23,12 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false, 
           title: 'Flutter App',
           theme: themeProvider.currentTheme,
           initialRoute: '/',
           routes: {
-            '/': (context) => WelcomePage(),
+            '/': (context) => const Signup(),
             '/update_Profile': (context) => UpdateProfile(),
             '/homePage_client': (context) => HomePageClient(),
             '/homePage_livreur': (context) => HomePageLivreur(),
