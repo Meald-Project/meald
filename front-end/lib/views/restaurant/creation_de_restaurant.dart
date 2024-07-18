@@ -44,9 +44,7 @@ class _CreationDeRestaurantState extends State<CreationDeRestaurant> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Création De Restaurant'),
-      ),
+      
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
