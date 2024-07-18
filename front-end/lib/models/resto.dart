@@ -1,5 +1,5 @@
 class Resto {
-  String id;
+  int id;
   String nameResto;
   String address;
   String phone;

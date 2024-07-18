@@ -94,7 +94,7 @@ class _CreationDArticleState extends State<CreationDArticle> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Nom de votre Restaurant * :",
+                "Nom de votre Article * :",
                 style: TextStyle(
                   fontSize: 18,
                 ),
