@@ -6,6 +6,7 @@ import 'views/livreur/home_page.dart';
 import 'views/update_profile.dart';
 import 'views/welcome_page.dart';
 import 'views/login.dart';
+import 'views/restaurant/creation_de_restaurant.dart';
 import '../widgets/themes/theme_provider.dart';
 import 'views/signup.dart';
 void main() {
@@ -28,7 +29,7 @@ class MyApp extends StatelessWidget {
           theme: themeProvider.currentTheme,
           initialRoute: '/',
           routes: {
-            '/': (context) => const Signup(),
+            '/': (context) => const CreationDeRestaurant(),
             '/update_Profile': (context) => UpdateProfile(),
             '/homePage_client': (context) => HomePageClient(),
             '/homePage_livreur': (context) => HomePageLivreur(),
