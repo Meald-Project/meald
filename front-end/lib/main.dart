@@ -3,11 +3,12 @@ import 'package:provider/provider.dart';
 import 'views/client/home_page.dart';
 import 'views/restaurant/home_page.dart';
 import 'views/livreur/home_page.dart';
-import 'views/update_profile.dart';
 import 'views/welcome_page.dart';
 import 'views/login.dart';
+import 'views/restaurant/creation_de_restaurant.dart';
+import 'views/restaurant/creation_d_article.dart';
 import '../widgets/themes/theme_provider.dart';
-
+import 'views/signup.dart';
 void main() {
   runApp(
     ChangeNotifierProvider<ThemeProvider>(
@@ -23,12 +24,13 @@ class MyApp extends StatelessWidget {
     return Consumer<ThemeProvider>(
       builder: (context, themeProvider, child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false, 
           title: 'Flutter App',
           theme: themeProvider.currentTheme,
           initialRoute: '/homePage_client',
           routes: {
             // '/': (context) => WelcomePage(),
-            '/update_Profile': (context) => UpdateProfile(),
+            '/': (context) => const CreationDArticle(),
             '/homePage_client': (context) => HomePageClient(),
             '/homePage_livreur': (context) => HomePageLivreur(),
             '/homePage_restaurant': (context) => HomePageRestaurant(),

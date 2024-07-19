@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class Signup extends StatefulWidget {
+  const Signup({Key? key}) : super(key: key);
 
   @override
-  State<Login> createState() => _LoginState();
+  State<Signup> createState() => _SignupState();
 }
 
-class _LoginState extends State<Login> {
+class _SignupState extends State<Signup> {
   Widget _button() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50.0),
@@ -20,7 +20,7 @@ class _LoginState extends State<Login> {
       child: ElevatedButton(
         onPressed: () {},
         child: Text(
-          'Sign In',
+          'Sign Up',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -52,13 +52,38 @@ class _LoginState extends State<Login> {
             children: [
               SizedBox(height: 30),
               Text(
+                "Name",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(height: 15),
+              Container(
+                width: double.infinity,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(240, 245, 250, 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Enter your Name",
+                    border: InputBorder.none,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                  ),
+                ),
+              ),
+              SizedBox(height: 15),
+              Text(
                 "E-Mail",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Container(
                 width: double.infinity,
                 height: 50,
@@ -70,12 +95,12 @@ class _LoginState extends State<Login> {
                   decoration: InputDecoration(
                     hintText: "Enter your email",
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                   ),
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Text(
                 "Password",
                 style: TextStyle(
@@ -83,7 +108,7 @@ class _LoginState extends State<Login> {
                   fontSize: 18,
                 ),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 15),
               Container(
                 width: double.infinity,
                 height: 50,
@@ -94,62 +119,41 @@ class _LoginState extends State<Login> {
                 child: TextField(
                   obscureText: true,
                   decoration: InputDecoration(
-                    hintText: "Enter your password",
+                    hintText: "Enter your Password",
                     border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                   ),
                 ),
               ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (bool? value) {},
+              SizedBox(height: 15),
+              Text(
+                "Confirm Password",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+              ),
+              SizedBox(height: 15),
+              Container(
+                width: double.infinity,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Color.fromRGBO(240, 245, 250, 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: TextField(
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "Enter your Password",
+                    border: InputBorder.none,
+                    contentPadding:
+                        EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                   ),
-                  Text(
-                    "Remember Me",
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
-                  Spacer(),
-                  Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 70, 3),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
+                ),
               ),
               SizedBox(height: 50),
               _button(),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account?",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 70, 3),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
-              )
             ],
           ),
         ),
@@ -167,7 +171,7 @@ class _LoginState extends State<Login> {
             child: Container(
               margin: EdgeInsets.only(top: 100),
               child: Text(
-                'Log In',
+                'Sign Up',
                 style: TextStyle(
                   fontSize: 24,
                   color: Colors.white,
@@ -178,14 +182,14 @@ class _LoginState extends State<Login> {
           ),
           SizedBox(height: 10),
           Text(
-            'Please sign in to your existing account',
+            'Please sign up to get started',
             style: TextStyle(
               fontSize: 16,
               color: Color.fromARGB(119, 255, 255, 255),
             ),
           ),
           SizedBox(height: 100),
-          _inputs()
+          _inputs(),
         ],
       ),
     );
