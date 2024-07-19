@@ -420,7 +420,6 @@ class ThirdPage extends StatelessWidget {
             ),
             ),
              SizedBox(height: 10),
-            // Skip text centered and grey
             TextButton(
               onPressed: () {
                Navigator.push(context,_createRoute(FourthPage()));
@@ -457,7 +456,7 @@ class FourthPage extends StatefulWidget {
 }
 
 class _FourthPageState extends State<FourthPage> {
-  int selectedButtonIndex = -1; // Initialize with -1 (no button selected)
+  int selectedButtonIndex = -1;
 
   @override
   Widget build(BuildContext context) {

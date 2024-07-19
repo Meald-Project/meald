@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'views/client/home_page.dart';
 import 'views/restaurant/home_page.dart';
 import 'views/livreur/home_page.dart';
-import 'views/update_profile.dart';
 import 'views/welcome_page.dart';
 import 'views/login.dart';
 import 'views/restaurant/creation_de_restaurant.dart';
@@ -28,10 +27,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false, 
           title: 'Flutter App',
           theme: themeProvider.currentTheme,
-          initialRoute: '/',
+          initialRoute: '/homePage_client',
           routes: {
+            // '/': (context) => WelcomePage(),
             '/': (context) => const CreationDArticle(),
-            '/update_Profile': (context) => UpdateProfile(),
             '/homePage_client': (context) => HomePageClient(),
             '/homePage_livreur': (context) => HomePageLivreur(),
             '/homePage_restaurant': (context) => HomePageRestaurant(),
