@@ -30,7 +30,7 @@ class _LoadingPageState extends State<HomePageRestaurant> {
     return Scaffold(
       body: Center(
         child: Image.network(
-          '../images/Logo.gif',
+          '../assets/Logo.gif',
           height: 130,
           width: 130,
         ),

@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           title: 'Flutter App',
           theme: themeProvider.currentTheme,
-          initialRoute: '/',
+          initialRoute: '/homePage_client',
           routes: {
-            '/': (context) => WelcomePage(),
+            // '/': (context) => WelcomePage(),
             '/update_Profile': (context) => UpdateProfile(),
             '/homePage_client': (context) => HomePageClient(),
             '/homePage_livreur': (context) => HomePageLivreur(),
