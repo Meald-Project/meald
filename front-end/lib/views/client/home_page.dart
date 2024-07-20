@@ -44,101 +44,104 @@ class _HomePageRState extends State<HomePageR> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return 
+    Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: SingleChildScrollView( child:Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.onError,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 5,
-                  offset: Offset(0, 3),
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 0.0), 
+  child: Container(
+    decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.onError,
+      boxShadow: [
+        BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 1,
+          blurRadius: 5,
+          offset: Offset(0, 3),
+        ),
+      ],
+    ),
+    child: Padding(
+      padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              showCupertinoModalPopup(
-              context: context,
-              builder: (BuildContext context) => SidebarPopup(),
-            );
-                            },
-                            child: Container(
-                              width: 37,
-                              height: 37,
-                              decoration: BoxDecoration(
-                                color: Color.fromARGB(255, 248, 248, 248),
-                                borderRadius: BorderRadius.circular(25),
-                              ),
-                              child: Icon(
-                                Icons.menu,
-                                color: Colors.black,
-                                size: 20,
-                              ),
-                            ),
-                          ),
-                          SizedBox(width: 10),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Bonjour, Assem',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              Text(
-                                'assem@gmail.com',
-                                style: TextStyle(
-                                  fontSize: 11,
-                                  color: Colors.grey,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                  GestureDetector(
+                    onTap: () {
+                      showCupertinoModalPopup(
+                        context: context,
+                        builder: (BuildContext context) => SidebarPopup(),
+                      );
+                    },
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Color.fromARGB(255, 226, 225, 225),
+                        borderRadius: BorderRadius.circular(25),
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          // Handle cart click
-                        },
-                        child: Container(
-                          width: 37,
-                          height: 37,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 2, 1, 49),
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Icon(
-                            Icons.shopping_bag,
-                            color: Colors.white,
-                            size: 20,
-                          ),
+                      child: Icon(
+                        Icons.menu,
+                        color: Colors.black,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Bonjour, Assem',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        'assem@gmail.com',
+                        style: TextStyle(
+                          fontSize: 11,
+                          color: Colors.grey,
                         ),
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
                 ],
               ),
-            ),
+              GestureDetector(
+                onTap: () {
+                  // Handle cart click
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 2, 1, 49),
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: Icon(
+                    Icons.shopping_bag,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+              ),
+            ],
           ),
           SizedBox(height: 10),
+        ],
+      ),
+    ),
+  ),
+), SizedBox(height: 10),
         
           Container(
           padding: EdgeInsets.all(10),
@@ -157,7 +160,7 @@ class _HomePageRState extends State<HomePageR> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-      width: 370, // Adjust the width as needed
+      width: 370, 
       child: TextField(
         decoration: InputDecoration(
           prefixIcon: IconButton(
@@ -167,9 +170,9 @@ class _HomePageRState extends State<HomePageR> {
             },
           ),
           filled: true,
-          fillColor: Color.fromARGB(255, 237, 235, 235),
-          hintText: 'Recherchez Des Plats Où Des Restaurants..',
-          hintStyle: TextStyle(fontSize: 12), // Corrected fontSize usage
+          fillColor: Color.fromARGB(255, 214, 214, 214),
+          hintText: 'Recherchez Des Plats Où Des Restaurants..',  
+          hintStyle: TextStyle(fontSize: 12,color: Theme.of(context).colorScheme.tertiary, ), 
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: BorderSide.none,
@@ -504,9 +507,42 @@ CarouselSlider(
           ),
         ],
       ),
-    )
+    ),
+     bottomNavigationBar: BottomNavBar(),
     )
   ;}
+}
+
+class BottomNavBar extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Acceuil',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: 'Favories',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_cart),
+          label: 'Charte',
+        ),
+      ],
+      selectedItemColor: Colors.orange, 
+      unselectedItemColor:Theme.of(context).colorScheme.secondary, 
+      currentIndex: 0, 
+      onTap: (int index) {
+
+      },
+    );
+  }
 }
 
 class SidebarPopup extends StatelessWidget {
@@ -530,7 +566,8 @@ class SidebarPopup extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       radius: 25, // Adjust the radius as needed
-                      backgroundImage: NetworkImage('https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png'), 
+                      backgroundImage: NetworkImage(
+                          'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png'),
                     ),
                     SizedBox(height: 20),
                     Text(
@@ -551,13 +588,13 @@ class SidebarPopup extends StatelessWidget {
                   ],
                 ),
               ),
-              buildDrawerItem('', 'Mon Profil'),
-              buildDrawerItem('', 'Ma Carte'),
-              buildDrawerItem('', 'Mes Favories'),
-              buildDrawerItem('', 'Historique'),
-              buildDrawerItem('', 'Localisations'),
-              buildDrawerItem('', 'Paramètres'),
-              buildDrawerItem('', 'Deconnecter'),
+              buildDrawerItem(Icons.person, 'Mon Profil'),
+              buildDrawerItem(Icons.credit_card, 'Ma Carte'),
+              buildDrawerItem(Icons.favorite, 'Mes Favories'),
+              buildDrawerItem(Icons.history, 'Historique'),
+              buildDrawerItem(Icons.location_on, 'Localisations'),
+              buildDrawerItem(Icons.settings, 'Paramètres'),
+              buildDrawerItem(Icons.exit_to_app, 'Deconnecter'),
               // Add more list items as needed
             ],
           ),
@@ -566,17 +603,18 @@ class SidebarPopup extends StatelessWidget {
     );
   }
 
-
-  Widget buildDrawerItem(String imagePath, String title) {
+  Widget buildDrawerItem(IconData icon, String title) {
     return ListTile(
-      leading: CircleAvatar(
-        radius: 20,
-        backgroundImage: AssetImage(imagePath), // Replace with your image
+      leading: Icon(
+        icon,
+        size: 30, // Adjust the size as needed
       ),
-      title: Text(title ,
-      style: TextStyle(
-        fontSize: 12,
-      ),),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 12,
+        ),
+      ),
       onTap: () {
         // Add functionality here
         print('Tapped on $title');

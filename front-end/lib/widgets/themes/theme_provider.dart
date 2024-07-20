@@ -27,7 +27,6 @@ class ThemeProvider with ChangeNotifier {
       _currentThemeType = ThemeType.Light;
     }
 
-    // Schedule a timer to check and update theme at 06:00 and 19:00
     Duration durationUntilNextThemeChange;
     if (now.hour >= 19) {
       durationUntilNextThemeChange = DateTime(now.year, now.month, now.day + 1, 6, 0, 0)
