@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
+import '../chart.dart';
 
 class HomePageClient extends StatefulWidget {
   @override
@@ -118,7 +118,10 @@ Padding(
               ),
               GestureDetector(
                 onTap: () {
-                  // Handle cart click
+                  Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChartPage()),
+               );
                 },
                 child: Container(
                   width: 40,
