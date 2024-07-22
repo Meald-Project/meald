@@ -10,6 +10,7 @@ import 'views/restaurant/creation_de_restaurant.dart';
 import 'views/restaurant/creation_d_article.dart';
 import '../widgets/themes/theme_provider.dart';
 import 'views/signup.dart';
+import 'views/restaurant/liste.dart';
 void main() {
   runApp(
     ChangeNotifierProvider<ThemeProvider>(
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
           theme: themeProvider.currentTheme,
           initialRoute: '/',
           routes: {
-            '/': (context) => const CreationDArticle(),
+            '/': (context) => const Liste(),
             '/update_Profile': (context) => UpdateProfile(),
             '/homePage_client': (context) => HomePageClient(),
             '/homePage_livreur': (context) => HomePageLivreur(),
