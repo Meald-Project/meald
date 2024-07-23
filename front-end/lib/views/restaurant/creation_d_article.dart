@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'footer.dart';
 
 class CreationDArticle extends StatefulWidget {
   const CreationDArticle({Key? key}) : super(key: key);
@@ -88,126 +89,134 @@ class _CreationDArticleState extends State<CreationDArticle> {
         title: Text('Création d\'un Nouveau Article'),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 25.0, top: 15, right: 25),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Nom de votre Article * :",
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              _input(),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Ajouter des images *:",
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(height: 20),
-              Row(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(left: 25.0, top: 15, right: 25),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _addimg(),
-                  SizedBox(width: 10),
-                  _addimg(),
-                  SizedBox(width: 10),
-                  _addimg(),
+                  Text(
+                    "Nom de votre Article * :",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  _input(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Ajouter des images *:",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      _addimg(),
+                      SizedBox(width: 10),
+                      _addimg(),
+                      SizedBox(width: 10),
+                      _addimg(),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Ajouter le Prix *:",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  _input(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Ajouter les ingrédients * :",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(240, 245, 250, 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: DropdownButton<String>(
+                        value: _selectedRestaurantType,
+                        hint: Text("Les ingrédients"),
+                        icon: Icon(Icons.arrow_downward),
+                        iconSize: 24,
+                        underline: SizedBox(),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedRestaurantType = newValue!;
+                          });
+                        },
+                        items: _restaurantTypes.map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "Détails * :",
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(240, 245, 250, 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Center(
+                    child: _button(),
+                  ),
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Ajouter le Prix *:",
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              _input(),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Ajouter les ingrédients * :",
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(240, 245, 250, 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: DropdownButton<String>(
-                    value: _selectedRestaurantType,
-                    hint: Text("Les ingrédients"),
-                    icon: Icon(Icons.arrow_downward),
-                    iconSize: 24,
-                    underline: SizedBox(),
-                    onChanged: (String? newValue) {
-                      setState(() {
-                        _selectedRestaurantType = newValue!;
-                      });
-                    },
-                    items: _restaurantTypes.map<DropdownMenuItem<String>>((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: Text(value),
-                      );
-                    }).toList(),
+            ),
+               SizedBox(
+                    height: 30,
                   ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Détails * :",
-                style: TextStyle(
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                width: double.infinity,
-                height: 150,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(240, 245, 250, 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Center(
-                child: _button(),
-              ),
-            ],
-          ),
+            Footer(),         
+          ],
         ),
       ),
     );

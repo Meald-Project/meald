@@ -68,7 +68,11 @@ flutter:
     - assets/mealdLogo.jpg
     - assets/User.gif
     - assets/addpic.png
-
+    - assets/home.png
+    - assets/list.png
+    - assets/add.png
+    - assets/notif.png
+    - assets/profile.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

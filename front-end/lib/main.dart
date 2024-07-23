@@ -9,6 +9,7 @@ import 'views/restaurant/creation_de_restaurant.dart';
 import 'views/restaurant/creation_d_article.dart';
 import '../widgets/themes/theme_provider.dart';
 import 'views/signup.dart';
+import 'views/restaurant/liste.dart';
 void main() {
   runApp(
     ChangeNotifierProvider<ThemeProvider>(
