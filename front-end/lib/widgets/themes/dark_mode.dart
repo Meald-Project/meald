@@ -6,7 +6,7 @@ ThemeData darkMode = ThemeData(
     secondary: Colors.white, 
    surface: Color.fromARGB(255, 3, 3, 3), 
     error: const Color(0xffd32f2f),
-    onError: Colors.black, 
+    onError: const Color.fromARGB(255, 17, 17, 17), 
     tertiary: Colors.white,
 
   ),
