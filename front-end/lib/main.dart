@@ -10,6 +10,8 @@ import 'views/restaurant/creation_d_article.dart';
 import '../widgets/themes/theme_provider.dart';
 import 'views/signup.dart';
 import 'views/restaurant/liste.dart';
+import 'views/restaurant/article_details.dart';
+import 'views/restaurant/tableau_debord.dart';
 void main() {
   runApp(
     ChangeNotifierProvider<ThemeProvider>(
@@ -28,13 +30,13 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false, 
           title: 'Flutter App',
           theme: themeProvider.currentTheme,
-          initialRoute: '/homePage_client',
+          initialRoute: '/',
           routes: {
             // '/': (context) => WelcomePage(),
-            '/': (context) => const CreationDArticle(),
-            '/homePage_client': (context) => HomePageClient(),
-            '/homePage_livreur': (context) => HomePageLivreur(),
-            '/homePage_restaurant': (context) => HomePageRestaurant(),
+            '/': (context) => const TableauDebord(),
+            // '/homePage_client': (context) => HomePageClient(),
+            // '/homePage_livreur': (context) => HomePageLivreur(),
+            // '/homePage_restaurant': (context) => HomePageRestaurant(),
           },
         );
       },

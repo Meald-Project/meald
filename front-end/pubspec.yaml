@@ -73,6 +73,8 @@ flutter:
     - assets/add.png
     - assets/notif.png
     - assets/profile.png
+    - assets/test.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
