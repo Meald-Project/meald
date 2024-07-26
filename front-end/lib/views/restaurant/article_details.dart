@@ -117,6 +117,27 @@ class _ArticleDetailsState extends State<ArticleDetails> {
                       ),
                     ],
                   ),
+                  Stack(children: [
+                    Container(
+                      height: 2,
+                      color: Colors.grey[300],
+                      margin: EdgeInsets.only(top: 15),
+                    ),
+                  ]
+                  ),
+                  SizedBox(height: 15,),
+                  Text("Les Ingrediants :"),
+                  SizedBox(height: 15,),
+                  Text("Les Detaills :"),
+                  SizedBox(height: 15,),
+                  Container(
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                  borderRadius: BorderRadius.circular(12),
+                    ),
+                  )
                 ],
               ),
             ),
