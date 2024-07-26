@@ -11,6 +11,7 @@ import '../widgets/themes/theme_provider.dart';
 import 'views/signup.dart';
 import 'views/restaurant/liste.dart';
 import 'views/restaurant/article_details.dart';
+import 'views/restaurant/tableau_debord.dart';
 void main() {
   runApp(
     ChangeNotifierProvider<ThemeProvider>(
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: {
             // '/': (context) => WelcomePage(),
-            '/': (context) => const ArticleDetails(),
+            '/': (context) => const TableauDebord(),
             // '/homePage_client': (context) => HomePageClient(),
             // '/homePage_livreur': (context) => HomePageLivreur(),
             // '/homePage_restaurant': (context) => HomePageRestaurant(),
