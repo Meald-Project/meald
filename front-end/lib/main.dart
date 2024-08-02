@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: {
             // '/': (context) => WelcomePage(),
-            '/': (context) => const TableauDebord(),
+            '/': (context) => const TableauDebord (),
             // '/homePage_client': (context) => HomePageClient(),
             // '/homePage_livreur': (context) => HomePageLivreur(),
             // '/homePage_restaurant': (context) => HomePageRestaurant(),
