@@ -10,6 +10,11 @@ import 'views/restaurant/creation_de_restaurant.dart';
 import 'views/restaurant/creation_d_article.dart';
 import '../widgets/themes/theme_provider.dart';
 import 'views/login.dart';
+import 'views/signup.dart';
+import 'views/restaurant/liste.dart';
+import 'views/restaurant/article_details.dart';
+import 'views/restaurant/tableau_debord.dart';
+
 void main() {
   runApp(
     ChangeNotifierProvider<ThemeProvider>(
@@ -28,17 +33,18 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false, 
           title: 'meald',
           theme: themeProvider.currentTheme,
-          initialRoute: '/homePage_client',
+          initialRoute: '/',
           routes: {
             '/': (context) => WelcomePage(),
             '/creation_article': (context) => const CreationDArticle(),
             '/homePage_client': (context) => HomePageClient(),
             '/profilePage_client': (context) => ProfilePage(),
             '/homePage_livreur': (context) => HomePageLivreur(),
-            '/homePage_restaurant': (context) => HomePageRestaurant(),
+            '/homePage_restaurant': (context) => const TableauDebord (),
             '/Signup': (context) => Signup(),
             '/Login': (context) => Login(),
             '/Role': (context) => FourthPage(),
+            //'/': (context) => const TableauDebord (),
 
           },
         );
