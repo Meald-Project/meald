@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'login.dart';
+import 'package:meald/viewmodels/login_view_model.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -9,6 +9,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  final LoginViewModel viewModel = LoginViewModel();
+
   Widget _button() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50.0),
@@ -20,7 +22,7 @@ class _LoginState extends State<Login> {
       ),
       child: ElevatedButton(
         onPressed: () {
-        Navigator.of(context).pushNamed('/Role');
+          viewModel.login(context);
         },
         child: Text(
           'Se Connecter',
@@ -71,11 +73,11 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
+                    controller: viewModel.emailController,
                     decoration: InputDecoration(
                       hintText: "Entrez votre email",
                       border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                     ),
                   ),
                 ),
@@ -96,12 +98,12 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
+                    controller: viewModel.passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Entrez votre Mot De Passe",
                       border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                     ),
                   ),
                 ),
@@ -158,7 +160,7 @@ class _LoginState extends State<Login> {
                       ),
                     )
                   ],
-                )
+                ),
               ],
             ),
           ),
@@ -195,10 +197,9 @@ class _LoginState extends State<Login> {
             ),
           ),
           SizedBox(height: 100),
-          _inputs()
+          _inputs(),
         ],
       ),
     );
   }
 }
-

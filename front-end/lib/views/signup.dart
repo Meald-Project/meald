@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'signup.dart';
+import 'package:meald/viewmodels/signup_view_model.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -9,6 +9,14 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
+  final SignupViewModel viewModel = SignupViewModel();
+
+  @override
+  void dispose() {
+    viewModel.dispose();
+    super.dispose();
+  }
+
   Widget _button() {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 50.0),
@@ -20,7 +28,7 @@ class _SignupState extends State<Signup> {
       ),
       child: ElevatedButton(
         onPressed: () {
-        Navigator.of(context).pushNamed('/Role');
+          viewModel.signup(context);
         },
         child: Text(
           "S'inscrire",
@@ -71,6 +79,7 @@ class _SignupState extends State<Signup> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
+                    controller: viewModel.nameController,
                     decoration: InputDecoration(
                       hintText: "Entez Votre Nom",
                       border: InputBorder.none,
@@ -96,6 +105,7 @@ class _SignupState extends State<Signup> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
+                    controller: viewModel.emailController,
                     decoration: InputDecoration(
                       hintText: "Entrez Votre email",
                       border: InputBorder.none,
@@ -121,6 +131,7 @@ class _SignupState extends State<Signup> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
+                    controller: viewModel.passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Entrez Votre Mot De Passe",
@@ -147,6 +158,7 @@ class _SignupState extends State<Signup> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: TextField(
+                    controller: viewModel.confirmPasswordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Entrez Votre Mot De Passe",
