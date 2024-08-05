@@ -26,7 +26,7 @@ class ChartPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ma Charte'),
+        title: Text('Mon Sac'),
       ),
       body: ListView.builder(
         itemCount: articles.length,
@@ -214,23 +214,62 @@ class ChartItem extends StatelessWidget {
                   ),
                 ],
               ),
-              Positioned(
-                top: 5,
-                right: 5,
-                child: IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ModifierChartArticle(article: article),
-                      ),
-                    );
-                  },
-                ),
+        Positioned(
+  top: 5,
+  right: 5,
+  child: PopupMenuButton<String>(
+    onSelected: (value) {
+      if (value == 'update') {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ModifierChartArticle(article: article),
+          ),
+        );
+      } else if (value == 'delete') {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text('Are you sure you want to delete this item?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close dialog
+                },
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  // Implement delete logic here
+                  // After deletion, navigate back to chart page or update state
+                  Navigator.of(context).pop(); // Close dialog
+                },
+                child: Text('Yes'),
               ),
             ],
+          ),
+        );
+      }
+    },
+    itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+      const PopupMenuItem<String>(
+        value: 'update',
+        child: ListTile(
+          leading: Icon(Icons.edit),
+          title: Text('Update'),
+        ),
+      ),
+      const PopupMenuItem<String>(
+        value: 'delete',
+        child: ListTile(
+          leading: Icon(Icons.delete),
+          title: Text('Delete'),
+        ),
+      ),
+    ],
+    icon: Icon(Icons.more_vert),
+  ),
+),  ],
           ),
         ),
       ),

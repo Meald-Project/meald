@@ -181,7 +181,7 @@ class FirstPage extends StatelessWidget {
 
             TextButton(
               onPressed: () {
-                Navigator.push(context,_createRoute(FourthPage()));
+              Navigator.of(context).pushNamed('/Signup');
               },
               child: Text(
                 'Skip this page',
@@ -302,7 +302,7 @@ class SecondPage extends StatelessWidget {
 
             TextButton(
               onPressed: () {
-              Navigator.push(context,_createRoute(FourthPage()));
+              Navigator.of(context).pushNamed('/Signup');
               },
               child: Text(
                 'Skip this page',
@@ -409,10 +409,7 @@ class ThirdPage extends StatelessWidget {
                 // NEXT button
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      _createRoute(FourthPage()),
-                    );
+              Navigator.of(context).pushNamed('/Signup');
                   },
                   child: Text('NEXT =>'),
                 ),
@@ -422,7 +419,7 @@ class ThirdPage extends StatelessWidget {
              SizedBox(height: 10),
             TextButton(
               onPressed: () {
-               Navigator.push(context,_createRoute(FourthPage()));
+              Navigator.of(context).pushNamed('/Signup');
               },
               child: Text(
                 'Skip this page',

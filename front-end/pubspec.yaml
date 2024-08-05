@@ -68,6 +68,7 @@ flutter:
     - assets/mealdLogo.jpg
     - assets/User.gif
     - assets/addpic.png
+    - assets/profileBG.jpg
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
