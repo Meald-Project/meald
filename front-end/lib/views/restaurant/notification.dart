@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'footer.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({Key? key}) : super(key: key);
@@ -149,6 +150,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 ),
               ),
             ),
+            Footer(),         
           ],
         ),
       ),
