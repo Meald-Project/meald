@@ -1,36 +1,68 @@
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => HomePage(),
+        '/Home': (context) => SimplePage('Home Page'),
+        '/List': (context) => SimplePage('List Page'),
+        '/Add': (context) => SimplePage('Add Page'),
+        '/Notifications': (context) => SimplePage('Notifications Page'),
+        '/Profile': (context) => SimplePage('Profile Page'),
+      },
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(child: Text('Home Page')),
+      bottomNavigationBar: Footer(),
+    );
+  }
+}
+
 class Footer extends StatefulWidget {
-  const Footer({ Key? key }) : super(key: key);
+  const Footer({Key? key}) : super(key: key);
 
   @override
   _FooterState createState() => _FooterState();
 }
 
 class _FooterState extends State<Footer> {
-  void _onHomeTap() {
-    print('Home icon tapped!');
-    // Navigate to the home screen or perform any action
-  }
+  int _selectedIndex = -1; // Index of the currently selected icon
 
-  void _onListTap() {
-    print('List icon tapped!');
-    // Navigate to the list screen or perform any action
-  }
+  void _onIconTap(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
 
-  void _onAddTap() {
-    print('Add icon tapped!');
-    // Open add item dialog or perform any action
-  }
-
-  void _onNotifTap() {
-    print('Notification icon tapped!');
-    // Navigate to notifications screen or perform any action
-  }
-
-  void _onProfileTap() {
-    print('Profile icon tapped!');
-    // Navigate to profile screen or perform any action
+    switch (index) {
+      case 0:
+        Navigator.of(context).pushNamed('/homePage_restaurant');
+        break;
+      case 1:
+        Navigator.of(context).pushNamed('/List');
+        break;
+      case 2:
+        Navigator.of(context).pushNamed('/creation_article');
+        break;
+      case 3:
+        Navigator.of(context).pushNamed('/Notif');
+        break;
+      case 4:
+        Navigator.of(context).pushNamed('/Profile');
+        break;
+    }
   }
 
   @override
@@ -41,65 +73,94 @@ class _FooterState extends State<Footer> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           GestureDetector(
-            onTap: _onHomeTap,
-            child: SizedBox(
-              width: 30,
-              height: 30,
-              child: Image.asset(
-                'assets/home.png',
+            onTap: () => _onIconTap(0),
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              child: Icon(
+                Icons.home,
+                size: 30,
+                color: _selectedIndex == 0
+                    ? Color.fromARGB(203, 255, 70, 3)
+                    : Colors.black,
               ),
             ),
           ),
           GestureDetector(
-            onTap: _onListTap,
-            child: SizedBox(
-              width: 30,
-              height: 30,
-              child: Image.asset(
-                'assets/list.png',
+            onTap: () => _onIconTap(1),
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              child: Icon(
+                Icons.list,
+                size: 30,
+                color: _selectedIndex == 1
+                    ? Color.fromARGB(203, 255, 70, 3)
+                    : Colors.black,
               ),
             ),
           ),
           GestureDetector(
-            onTap: _onAddTap,
-            child: Container(
+            onTap: () => _onIconTap(2),
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color: Color.fromARGB(49, 255, 70, 3),
+                color: _selectedIndex == 2
+                    ? Color.fromARGB(49, 255, 70, 3)
+                    : Colors.transparent,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(
-                  color: Color.fromARGB(203, 255, 70, 3),
-                  width: 4,
-                ),
               ),
-              child: Image.asset(
-                'assets/add.png',
-              ),
-            ),
-          ),
-          GestureDetector(
-            onTap: _onNotifTap,
-            child: SizedBox(
-              width: 30,
-              height: 30,
-              child: Image.asset(
-                'assets/notif.png',
+              child: Icon(
+                Icons.add,
+                size: 30,
+                color: _selectedIndex == 2
+                    ? Color.fromARGB(203, 255, 70, 3)
+                    : Colors.black,
               ),
             ),
           ),
           GestureDetector(
-            onTap: _onProfileTap,
-            child: SizedBox(
-              width: 30,
-              height: 30,
-              child: Image.asset(
-                'assets/profile.png',
+            onTap: () => _onIconTap(3),
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              child: Icon(
+                Icons.notifications,
+                size: 30,
+                color: _selectedIndex == 3
+                    ? Color.fromARGB(203, 255, 70, 3)
+                    : Colors.black,
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () => _onIconTap(4),
+            child: AnimatedContainer(
+              duration: Duration(milliseconds: 300),
+              child: Icon(
+                Icons.person,
+                size: 30,
+                color: _selectedIndex == 4
+                    ? Color.fromARGB(203, 255, 70, 3)
+                    : Colors.black,
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+class SimplePage extends StatelessWidget {
+  final String title;
+
+  SimplePage(this.title);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: Center(child: Text('This is the $title')),
     );
   }
 }
