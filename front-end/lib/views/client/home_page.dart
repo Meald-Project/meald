@@ -1,8 +1,143 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:meald/views/login.dart';
+import '../chart.dart';
+import 'favoris_page.dart';
+import 'historique_page.dart';
+import 'localisations.dart';
+import 'parametres.dart';
+import 'profile_page.dart';
 
+//code
+class BottomNavBar extends StatefulWidget {
+  @override
+  _BottomNavBarState createState() => _BottomNavBarState();
+}
 
+class _BottomNavBarState extends State<BottomNavBar> {
+  int _currentIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return BottomNavigationBar(
+      items: <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Acceuil',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.person),
+          label: 'Profile',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: 'Favoris',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.shopping_bag),
+          label: 'Sac',
+        ),
+      ],
+      selectedItemColor: Colors.orange, 
+      unselectedItemColor: Theme.of(context).colorScheme.secondary, 
+      currentIndex: _currentIndex, 
+      onTap: (int index) {
+        setState(() {
+          _currentIndex = index;
+        });
+
+        switch(index) {
+          case 1:
+         Navigator.of(context).pushNamed('/profilePage_client');
+         break;
+
+        }
+      },
+    );
+  }
+}
+class SidebarPopup extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topLeft,
+      child: Container(
+        width: 180,
+        height: MediaQuery.of(context).size.height,
+        child: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              Container(
+                color: Colors.orange,
+                height: 220, 
+                child: DrawerHeader(
+                  padding: EdgeInsets.all(0), // Remove default padding
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                                    SizedBox(height: 60,),
+                      CircleAvatar(
+                        radius: 25, 
+                        backgroundImage: NetworkImage(
+                            'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png'),
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        'Assem Ben Ahmed',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ), 
+                      Text(
+                        'assem@gmail.com',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 100,),
+              buildDrawerItem(context, Icons.favorite, 'Mes Favories', FavorisPage()),
+              buildDrawerItem(context, Icons.history, 'Historique', HistoryPage()),
+              buildDrawerItem(context, Icons.location_on, 'Localisations', LocalisationsPage()),
+              buildDrawerItem(context, Icons.settings, 'Paramètres', ParametresPage()),
+              buildDrawerItem(context, Icons.exit_to_app, 'Deconnecter', Login()),
+
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildDrawerItem(BuildContext context, IconData icon, String title, Widget page) {
+    return ListTile(
+      leading: Icon(
+        icon,
+        size: 30, 
+      ),
+      title: Text(
+        title,
+        style: TextStyle(
+          fontSize: 12,
+        ),
+      ),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => page),
+        );
+      },
+    );
+  }
+}
 class HomePageClient extends StatefulWidget {
   @override
   _HomePageClientState createState() => _HomePageClientState();
@@ -25,7 +160,7 @@ class _HomePageClientState extends State<HomePageClient> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          '../assets/Logo.gif', // Adjusted path for local assets
+          'assets/Logo.gif', // Adjusted path for local assets
           height: 130,
           width: 130,
         ),
@@ -40,7 +175,58 @@ class HomePageR extends StatefulWidget {
 }
 
 class _HomePageRState extends State<HomePageR> {
-  bool isLiked = false;
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    HomeScreen(),        // The main home page widget
+    ProfilePage(),
+    FavorisPage(),
+    ChartPage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: IndexedStack(
+        index: _currentIndex,
+        children: _pages,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Acceuil',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.favorite),
+            label: 'Favoris',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: 'Sac',
+          ),
+        ],
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.orange,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+      ),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +304,10 @@ Padding(
               ),
               GestureDetector(
                 onTap: () {
-                  // Handle cart click
+                  Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ChartPage()),
+               );
                 },
                 child: Container(
                   width: 40,
@@ -210,18 +399,6 @@ SizedBox(height: 20),
                         ),
                       ],
                     ),
-                    InkWell(
-                      onTap: () {
-                        // Handle "voir plus" click
-                      },
-                      child: Text(
-                        'voir plus',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -296,18 +473,6 @@ CarouselSlider(
                           ),
                         ),
                       ],
-                    ),
-                    InkWell(
-                      onTap: () {
-                        // Handle "voir plus" click
-                      },
-                      child: Text(
-                        'voir plus',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
                     ),
                   ],
                 ),
@@ -468,7 +633,7 @@ CarouselSlider(
                 padding: const EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start, // Align text to the start
-                  children: [
+                  children: [ 
                     Text(
                       'Restaurant ',
                       style: TextStyle(
@@ -508,117 +673,6 @@ CarouselSlider(
         ],
       ),
     ),
-     bottomNavigationBar: BottomNavBar(),
     )
   ;}
-}
-
-class BottomNavBar extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BottomNavigationBar(
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Acceuil',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.person),
-          label: 'Profile',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favories',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_cart),
-          label: 'Charte',
-        ),
-      ],
-      selectedItemColor: Colors.orange, 
-      unselectedItemColor:Theme.of(context).colorScheme.secondary, 
-      currentIndex: 0, 
-      onTap: (int index) {
-
-      },
-    );
-  }
-}
-
-class SidebarPopup extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.topLeft,
-      child: Container(
-        width: 180,
-        height: MediaQuery.of(context).size.height,
-        child: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Colors.orange,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    CircleAvatar(
-                      radius: 25, // Adjust the radius as needed
-                      backgroundImage: NetworkImage(
-                          'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png'),
-                    ),
-                    SizedBox(height: 20),
-                    Text(
-                      'Assem Ben Ahmed',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'assem@gmail.com',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              buildDrawerItem(Icons.person, 'Mon Profil'),
-              buildDrawerItem(Icons.credit_card, 'Ma Carte'),
-              buildDrawerItem(Icons.favorite, 'Mes Favories'),
-              buildDrawerItem(Icons.history, 'Historique'),
-              buildDrawerItem(Icons.location_on, 'Localisations'),
-              buildDrawerItem(Icons.settings, 'Paramètres'),
-              buildDrawerItem(Icons.exit_to_app, 'Deconnecter'),
-              // Add more list items as needed
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildDrawerItem(IconData icon, String title) {
-    return ListTile(
-      leading: Icon(
-        icon,
-        size: 30, // Adjust the size as needed
-      ),
-      title: Text(
-        title,
-        style: TextStyle(
-          fontSize: 12,
-        ),
-      ),
-      onTap: () {
-        // Add functionality here
-        print('Tapped on $title');
-      },
-    );
-  }
 }

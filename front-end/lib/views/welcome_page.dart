@@ -14,7 +14,7 @@ class _LoadingPageState extends State<WelcomePage> {
     Future.delayed(Duration(milliseconds: 4590), () {
       Navigator.pushReplacement(
         context,
-        _createRoute(ThemeSelectionPage()),
+        _createRoute(FirstPage()),
       );
     });
   }
@@ -34,71 +34,71 @@ class _LoadingPageState extends State<WelcomePage> {
 }
 
 
-class ThemeSelectionPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Choose Theme',
-         style: TextStyle(
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-            fontStyle: FontStyle.italic,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-        ),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Provider.of<ThemeProvider>(context, listen: false).setLightMode();
-                Navigator.push(context,_createRoute(FirstPage()));
+// class ThemeSelectionPage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Choose Theme',
+//          style: TextStyle(
+//             fontSize: 20,
+//             fontWeight: FontWeight.bold,
+//             fontStyle: FontStyle.italic,
+//             color: Theme.of(context).colorScheme.secondary,
+//           ),
+//         ),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: [
+//             ElevatedButton(
+//               onPressed: () {
+//                 Provider.of<ThemeProvider>(context, listen: false).setLightMode();
+//                 Navigator.push(context,_createRoute(FirstPage()));
 
-              },
-              style: ElevatedButton.styleFrom( 
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(
-                    color: Colors.orange,
-                  ),
-                ),
-              ),
-              child: Text(
-                'Light Mode',
-                style: TextStyle(fontSize: 18 , color: Colors.orange),
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Provider.of<ThemeProvider>(context, listen: false).setDarkMode();
-                Navigator.push(context,_createRoute(FirstPage()));
-              },
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: BorderSide(
-                    color: Colors.orange,
-                  ),
-                ),
+//               },
+//               style: ElevatedButton.styleFrom( 
+//                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(10),
+//                   side: BorderSide(
+//                     color: Colors.orange,
+//                   ),
+//                 ),
+//               ),
+//               child: Text(
+//                 'Light Mode',
+//                 style: TextStyle(fontSize: 18 , color: Colors.orange),
+//               ),
+//             ),
+//             SizedBox(height: 20),
+//             ElevatedButton(
+//               onPressed: () {
+//                 Provider.of<ThemeProvider>(context, listen: false).setDarkMode();
+//                 Navigator.push(context,_createRoute(FirstPage()));
+//               },
+//               style: ElevatedButton.styleFrom(
+//                 padding: EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+//                 shape: RoundedRectangleBorder(
+//                   borderRadius: BorderRadius.circular(10),
+//                   side: BorderSide(
+//                     color: Colors.orange,
+//                   ),
+//                 ),
                 
-              ),
-              child: Text(
-                'Dark Mode',
-                style: TextStyle(fontSize: 18, color: Theme.of(context).colorScheme.secondary,),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//               ),
+//               child: Text(
+//                 'Dark Mode',
+//                 style: TextStyle(fontSize: 18, color: Theme.of(context).colorScheme.secondary,),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 
 class FirstPage extends StatelessWidget {
@@ -181,7 +181,7 @@ class FirstPage extends StatelessWidget {
 
             TextButton(
               onPressed: () {
-                Navigator.push(context,_createRoute(FourthPage()));
+              Navigator.of(context).pushNamed('/Signup');
               },
               child: Text(
                 'Skip this page',
@@ -302,7 +302,7 @@ class SecondPage extends StatelessWidget {
 
             TextButton(
               onPressed: () {
-              Navigator.push(context,_createRoute(FourthPage()));
+              Navigator.of(context).pushNamed('/Signup');
               },
               child: Text(
                 'Skip this page',
@@ -409,10 +409,7 @@ class ThirdPage extends StatelessWidget {
                 // NEXT button
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      _createRoute(FourthPage()),
-                    );
+              Navigator.of(context).pushNamed('/Signup');
                   },
                   child: Text('NEXT =>'),
                 ),
@@ -422,7 +419,7 @@ class ThirdPage extends StatelessWidget {
              SizedBox(height: 10),
             TextButton(
               onPressed: () {
-               Navigator.push(context,_createRoute(FourthPage()));
+              Navigator.of(context).pushNamed('/Signup');
               },
               child: Text(
                 'Skip this page',

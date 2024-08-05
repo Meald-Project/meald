@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'login.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -18,9 +19,11 @@ class _LoginState extends State<Login> {
         borderRadius: BorderRadius.circular(15),
       ),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+        Navigator.of(context).pushNamed('/Role');
+        },
         child: Text(
-          'Sign In',
+          'Se Connecter',
           style: TextStyle(
             color: Colors.white,
             fontSize: 20,
@@ -43,114 +46,121 @@ class _LoginState extends State<Login> {
             topLeft: Radius.circular(30),
             topRight: Radius.circular(30),
           ),
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 30),
-              Text(
-                "E-Mail",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(240, 245, 250, 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Enter your email",
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 30),
+                Text(
+                  "E-Mail",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 15,
                   ),
                 ),
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Password",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                width: double.infinity,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(240, 245, 250, 1),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextField(
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "Enter your password",
-                    border: InputBorder.none,
-                    contentPadding: EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 15),
+                SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(240, 245, 250, 1),
+                    borderRadius: BorderRadius.circular(10),
                   ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Row(
-                children: [
-                  Checkbox(
-                    value: false,
-                    onChanged: (bool? value) {},
-                  ),
-                  Text(
-                    "Remember Me",
-                    style: TextStyle(
-                      color: Colors.grey,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hintText: "Entrez votre email",
+                      border: InputBorder.none,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                     ),
                   ),
-                  Spacer(),
-                  Text(
-                    "Forgot Password?",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 70, 3),
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )
-                ],
-              ),
-              SizedBox(height: 50),
-              _button(),
-              SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Don't have an account?",
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
+                ),
+                SizedBox(height: 10),
+                Text(
+                  "Mot De Passe",
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 15,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(240, 245, 250, 1),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: TextField(
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: "Entrez votre Mot De Passe",
+                      border: InputBorder.none,
+                      contentPadding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                     ),
                   ),
-                  SizedBox(width: 10),
-                  Text(
-                    "Sign Up",
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 255, 70, 3),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
+                ),
+                SizedBox(height: 10),
+                Row(
+                  children: [
+                    Checkbox(
+                      value: false,
+                      onChanged: (bool? value) {},
                     ),
-                  )
-                ],
-              )
-            ],
+                    Text(
+                      "Me Reconnaitre",
+                      style: TextStyle(
+                        color: Colors.grey,
+                      ),
+                    ),
+                    Spacer(),
+                    Text(
+                      "Mot De Passe Oubliée?",
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 255, 70, 3),
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
+                ),
+                SizedBox(height: 30),
+                _button(),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Vous N'avez Pas De Compte?",
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(width: 10),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/Signup');
+                      },
+                      child: Text(
+                        "S'inscrire",
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 255, 70, 3),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -167,7 +177,7 @@ class _LoginState extends State<Login> {
             child: Container(
               margin: EdgeInsets.only(top: 100),
               child: Text(
-                'Log In',
+                'Se Connecter',
                 style: TextStyle(
                   fontSize: 24,
                   color: Colors.white,
@@ -178,7 +188,7 @@ class _LoginState extends State<Login> {
           ),
           SizedBox(height: 10),
           Text(
-            'Please sign in to your existing account',
+            'Veillez Se Connecter Sur Votre Profil Existant',
             style: TextStyle(
               fontSize: 16,
               color: Color.fromARGB(119, 255, 255, 255),
@@ -191,3 +201,4 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
