@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'footer.dart';
+import 'sidebar.dart';
 
 class TableauDebord extends StatefulWidget {
   const TableauDebord({Key? key}) : super(key: key);
@@ -8,7 +9,8 @@ class TableauDebord extends StatefulWidget {
   _TableauDebordState createState() => _TableauDebordState();
 }
 
-class _TableauDebordState extends State<TableauDebord> with SingleTickerProviderStateMixin {
+class _TableauDebordState extends State<TableauDebord>
+    with SingleTickerProviderStateMixin {
   String _selectedStat = '';
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -101,12 +103,13 @@ class _TableauDebordState extends State<TableauDebord> with SingleTickerProvider
             IconButton(
               icon: const Icon(Icons.account_circle),
               onPressed: () {
-                // Handle profile icon press
+                Scaffold.of(context).openDrawer();
               },
             ),
           ],
         ),
       ),
+      drawer: Sidebar(),
       body: Stack(
         children: [
           GestureDetector(
@@ -145,7 +148,8 @@ class _TableauDebordState extends State<TableauDebord> with SingleTickerProvider
                   left: 0,
                   right: 0,
                   child: GestureDetector(
-                    onTap: () {}, // Prevents closing when tapping inside the sheet
+                    onTap:
+                        () {}, // Prevents closing when tapping inside the sheet
                     child: Container(
                       height: 400,
                       decoration: BoxDecoration(
@@ -153,7 +157,7 @@ class _TableauDebordState extends State<TableauDebord> with SingleTickerProvider
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(20),
                         ),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black26,
                             spreadRadius: 5,
@@ -173,7 +177,8 @@ class _TableauDebordState extends State<TableauDebord> with SingleTickerProvider
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -193,10 +198,12 @@ class _TableauDebordState extends State<TableauDebord> with SingleTickerProvider
                           ),
                           Expanded(
                             child: ListView.builder(
-                              itemCount: 5, // Update with actual number of orders
+                              itemCount:
+                                  5, // Update with actual number of orders
                               itemBuilder: (context, index) {
                                 return Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0, vertical: 8.0),
                                   child: Card(
                                     elevation: 3,
                                     shape: RoundedRectangleBorder(
@@ -207,7 +214,8 @@ class _TableauDebordState extends State<TableauDebord> with SingleTickerProvider
                                       child: Row(
                                         children: [
                                           ClipRRect(
-                                            borderRadius: BorderRadius.circular(10),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
                                             child: Image.asset(
                                               'assets/test.png',
                                               width: 80,
@@ -218,29 +226,30 @@ class _TableauDebordState extends State<TableauDebord> with SingleTickerProvider
                                           const SizedBox(width: 16),
                                           Expanded(
                                             child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: const [
                                                 Text(
                                                   '#Breakfast',
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     color: Colors.red,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                const SizedBox(height: 4),
+                                                SizedBox(height: 4),
                                                 Text(
                                                   'Chicken Thai Biriyani',
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontSize: 18,
                                                     fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                const SizedBox(height: 4),
+                                                SizedBox(height: 4),
                                                 Text('ID: 32053'),
-                                                const SizedBox(height: 4),
+                                                SizedBox(height: 4),
                                                 Text(
                                                   '\$60',
-                                                  style: const TextStyle(
+                                                  style: TextStyle(
                                                     fontSize: 16,
                                                     fontWeight: FontWeight.bold,
                                                   ),
