@@ -166,14 +166,6 @@ class _ProfileRestoState extends State<ProfileResto> {
                       Navigator.of(context).pop();
                     },
                   ),
-                  actions: [
-                    IconButton(
-                      icon: const Icon(Icons.account_circle, color: Colors.black),
-                      onPressed: () {
-                        // Action pour l'icône de profil
-                      },
-                    ),
-                  ],
                 ),
                 SliverToBoxAdapter(
                   child: Padding(

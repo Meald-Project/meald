@@ -30,10 +30,6 @@ const Commande = sequelize.define(
       type: DataTypes.STRING(45),
       allowNull: true,
     },
-    status: {
-      type: DataTypes.STRING(45),
-      allowNull: true,
-    },
     mode_payement: {
       type: DataTypes.STRING(45),
       allowNull: true,

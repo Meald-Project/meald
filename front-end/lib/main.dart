@@ -16,10 +16,19 @@ import 'views/restaurant/article_details.dart';
 import 'views/restaurant/tableau_debord.dart';
 import 'views/restaurant/notification.dart';
 import 'views/restaurant/profile_resto.dart';
+import 'package:meald/viewmodels/footer_view_model.dart'; // Assurez-vous d'importer le ViewModel
+
 void main() {
   runApp(
-    ChangeNotifierProvider<ThemeProvider>(
-      create: (_) => ThemeProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ThemeProvider>(
+          create: (_) => ThemeProvider(),
+        ),
+        ChangeNotifierProvider<FooterViewModel>(
+          create: (_) => FooterViewModel(),
+        ),
+      ],
       child: MyApp(),
     ),
   );
@@ -36,19 +45,19 @@ class MyApp extends StatelessWidget {
           theme: themeProvider.currentTheme,
           initialRoute: '/',
           routes: {
-            // '/': (context) => WelcomePage(),
-            // '/creation_article': (context) => const CreationDArticle(),
-            // '/homePage_client': (context) => HomePageClient(),
-            // '/profilePage_client': (context) => ProfilePage(),
-            // '/homePage_livreur': (context) => HomePageLivreur(),
-            // '/homePage_restaurant': (context) => const TableauDebord (),
-            // '/Signup': (context) => Signup(),
-            // '/Login': (context) => Login(),
-            // '/Role': (context) => FourthPage(),
-            // '/Creatresto':(context)=> CreationDeRestaurant(),
-            // '/Notif':(context)=> NotificationScreen (),
-            '/':(context)=> ProfileResto(),
-
+            '/': (context) => WelcomePage(),
+            '/creation_article': (context) => const CreationDArticle(),
+            '/homePage_client': (context) => HomePageClient(),
+            '/profilePage_client': (context) => ProfilePage(),
+            '/homePage_livreur': (context) => HomePageLivreur(),
+            '/homePage_restaurant': (context) => const TableauDebord(),
+            '/Signup': (context) => Signup(),
+            '/Login': (context) => Login(),
+            '/Role': (context) => FourthPage(),
+            '/Creatresto':(context)=> CreationDeRestaurant(),
+            '/Notif':(context)=> NotificationScreen(),
+            '/Profile':(context)=> ProfileResto(),
+            '/List':(context)=> Liste(),
           },
         );
       },
