@@ -10,10 +10,6 @@ const Client = sequelize.define(
       autoIncrement: true,
       primaryKey: true,
     },
-    mode_de_payement: {
-      type: DataTypes.STRING(50),
-      allowNull: true,
-    },
     user_user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

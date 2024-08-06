@@ -22,6 +22,10 @@ const Article = sequelize.define(
       type: DataTypes.STRING(225),
       allowNull: true,
     },
+    disponibile: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+    },
     categories_id: {
       type: DataTypes.INTEGER,
       allowNull: false,

@@ -9,8 +9,6 @@ import 'historique_page.dart';
 import 'localisations.dart';
 import 'parametres.dart';
 import 'profile_page.dart';
-import 'package:provider/provider.dart';
-
 
 //code
 class BottomNavBar extends StatefulWidget {
@@ -23,7 +21,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    
     
     return BottomNavigationBar(
       items: <BottomNavigationBarItem>[
@@ -63,11 +60,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 }
 class SidebarPopup extends StatelessWidget {
+    final UserViewModel userViewModel;
+
+  SidebarPopup({required this.userViewModel});
+
   @override
   Widget build(BuildContext context) {
-    final userViewModel = Provider.of<UserViewModel>(context);
-    final name = userViewModel.getName;
-    final email = userViewModel.getEmail;
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
@@ -93,7 +91,7 @@ class SidebarPopup extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Text(
-                        name,
+                        '${userViewModel.getName}',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
@@ -101,7 +99,7 @@ class SidebarPopup extends StatelessWidget {
                         ),
                       ), 
                       Text(
-                        email,
+                        '${userViewModel.getEmail}',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 12,
@@ -147,6 +145,8 @@ class SidebarPopup extends StatelessWidget {
   }
 }
 class HomePageClient extends StatefulWidget {
+  final UserViewModel userViewModel;
+  HomePageClient({required this.userViewModel});
 
   @override
   _HomePageClientState createState() => _HomePageClientState();
@@ -159,7 +159,7 @@ class _HomePageClientState extends State<HomePageClient> {
     Future.delayed(Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePageR()),
+        MaterialPageRoute(builder: (context) => HomePageR(userViewModel: widget.userViewModel)),
       );
     });
   }
@@ -179,6 +179,9 @@ class _HomePageClientState extends State<HomePageClient> {
 }
 
 class HomePageR extends StatefulWidget {
+  final UserViewModel userViewModel;
+
+  HomePageR({required this.userViewModel});
 
   @override
   _HomePageRState createState() => _HomePageRState();
@@ -198,7 +201,7 @@ class _HomePageRState extends State<HomePageR> {
   void initState() {
     super.initState();
     _pages.addAll([
-      HomeScreen(), 
+      HomeScreen(userViewModel: widget.userViewModel), 
       ProfilePage(),
       FavorisPage(),
       ChartPage(),
@@ -248,13 +251,12 @@ class _HomePageRState extends State<HomePageR> {
 }
 
 class HomeScreen extends StatelessWidget {
+  final UserViewModel userViewModel;
+
+  HomeScreen({required this.userViewModel});
+
   @override
   Widget build(BuildContext context) {
-    final userViewModel = Provider.of<UserViewModel>(context);
-    final name = userViewModel.getName;
-    final email = userViewModel.getEmail;
-    print('name: {$name}');
-
     return 
     Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -288,7 +290,7 @@ Padding(
                     onTap: () {
                       showCupertinoModalPopup(
                         context: context,
-                        builder: (BuildContext context) => SidebarPopup(),
+                        builder: (BuildContext context) => SidebarPopup(userViewModel: userViewModel),
                       );
                     },
                     child: Container(
@@ -310,14 +312,14 @@ Padding(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name,
+                        '${userViewModel.getName}',
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        email,
+                        '${userViewModel.getEmail}',
                         style: TextStyle(
                           fontSize: 11,
                           color: Colors.grey,

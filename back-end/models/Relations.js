@@ -8,9 +8,9 @@ const Restaurant = require("./Restaurant");
 const Rating = require("./Rating");
 const ArticleCommande = require("./ArticleCommande");
 const DepotLivreur = require("./DepotLivreur");
-const User =require("./User")
-const Category =require('./Categories')
-// Importer tous les modèles ici et définir les relations
+const User = require("./User");
+const Category = require("./Categories");
+const Likes = require("./Likes"); // Import the Likes model
 
 // User - Livreur association
 User.hasOne(Livreur, { foreignKey: "user_user_id" });
@@ -64,8 +64,11 @@ ArticleCommande.belongsTo(Article, { foreignKey: "article_id" });
 Commande.hasMany(ArticleCommande, { foreignKey: "commande_id" });
 ArticleCommande.belongsTo(Commande, { foreignKey: "commande_id" });
 
+// Client - Article (Likes) association
+Client.belongsToMany(Article, { through: Likes, foreignKey: 'clientId' });
+Article.belongsToMany(Client, { through: Likes, foreignKey: 'articleId' });
 
-// Synchroniser les associations
+// Synchronize the associations
 // sequelize
 //   .sync()
 //   .then(() => {
@@ -74,6 +77,5 @@ ArticleCommande.belongsTo(Commande, { foreignKey: "commande_id" });
 //   .catch((err) => {
 //     console.error("Erreur lors de la synchronisation des associations :", err);
 //   });
-
 
 module.exports = sequelize;

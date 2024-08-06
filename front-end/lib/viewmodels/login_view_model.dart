@@ -33,26 +33,24 @@ class LoginViewModel extends ChangeNotifier {
         print('ID: $id');
 
         userViewModel.setId = id;
-        userViewModel.setName = responseData['user']['nom']; 
+        userViewModel.setName = responseData['user']['nom'];
         userViewModel.setEmail = responseData['user']['email'];
         userViewModel.setRole = role;
-
 
         print('User ID set to: ${userViewModel.getId}');
         print('User Name set to: ${userViewModel.getName}');
         print('User Email set to: ${userViewModel.getEmail}');
         print('User Role set to: ${userViewModel.getRole}');
 
-
         switch (role) {
           case 'client':
-            Navigator.of(context).pushReplacementNamed('/homePage_client', arguments: id);
+            Navigator.of(context).pushReplacementNamed('/homePageClient');
             break;
           case 'resto':
-            Navigator.of(context).pushReplacementNamed('/homePage_restaurant', arguments: id);
+            Navigator.of(context).pushReplacementNamed('/homePage_restaurant');
             break;
           case 'livreur':
-            Navigator.of(context).pushReplacementNamed('/homePage_livreur', arguments: id);
+            Navigator.of(context).pushReplacementNamed('/homePage_livreur');
             break;
           default:
             ScaffoldMessenger.of(context).showSnackBar(

@@ -173,7 +173,7 @@ class _ListeState extends State<Liste> {
                     ),
                     SizedBox(height: 15),
                     Row(
-                      children: [
+                      children: const [
                         Icon(
                           Icons.star,
                           color: Color.fromARGB(255, 255, 70, 3),
