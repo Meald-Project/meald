@@ -1,31 +1,50 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:meald/models/user.dart';
-class UserViewModel extends ChangeNotifier {
-  final User _user = User(name: '', email: '',password:'', role:'');
 
-  String get name => _user.name;
-  String get email => _user.email;
-  String get password => _user.password;
-  String get role => _user.role;
+class UserViewModel with ChangeNotifier {
+  int _id = 0;
+  String _name = 'azert';
+  String _email = '';
+  String _password = '';
+  String _role = '';
 
-  void setName(String firstname) {
-    _user.name = firstname;
+  int get getId => _id;
+  String get getName => _name;
+  String get getEmail => _email;
+  String get getPassword => _password;
+  String get getRole => _role;
+
+  set setId(int id) {
+    _id = id;
     notifyListeners();
   }
 
-  void setEmail(String email) {
-    _user.email= email;
+  set setName(String name) {
+    _name = name;
     notifyListeners();
   }
- void setPassword(String password) {
-    _user.password = password;
+
+  set setEmail(String email) {
+    _email = email;
     notifyListeners();
   }
-  void setRole(String role) {
-    _user.role= role;
+
+  set setPassword(String password) {
+    _password = password;
     notifyListeners();
   }
-  User getUser() {
-    return _user;
+
+  set setRole(String role) {
+    _role = role;
+    notifyListeners();
+  }
+
+  void updateFromUser(User user) {
+    _id = user.id;
+    _name = user.name;
+    _email = user.email;
+    _password = user.password;
+    _role = user.role;
+    notifyListeners();
   }
 }

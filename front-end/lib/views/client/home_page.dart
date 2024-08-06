@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:meald/viewmodels/user_view_model.dart';
 import 'package:meald/views/login.dart';
 import '../chart.dart';
 import 'favoris_page.dart';
@@ -8,6 +9,8 @@ import 'historique_page.dart';
 import 'localisations.dart';
 import 'parametres.dart';
 import 'profile_page.dart';
+import 'package:provider/provider.dart';
+
 
 //code
 class BottomNavBar extends StatefulWidget {
@@ -20,6 +23,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
+    
+    
     return BottomNavigationBar(
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
@@ -60,6 +65,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 class SidebarPopup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final userViewModel = Provider.of<UserViewModel>(context);
+    final name = userViewModel.getName;
+    final email = userViewModel.getEmail;
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
@@ -85,7 +93,7 @@ class SidebarPopup extends StatelessWidget {
                       ),
                       SizedBox(height: 20),
                       Text(
-                        'Assem Ben Ahmed',
+                        name,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
@@ -93,7 +101,7 @@ class SidebarPopup extends StatelessWidget {
                         ),
                       ), 
                       Text(
-                        'assem@gmail.com',
+                        email,
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 12,
@@ -139,6 +147,7 @@ class SidebarPopup extends StatelessWidget {
   }
 }
 class HomePageClient extends StatefulWidget {
+
   @override
   _HomePageClientState createState() => _HomePageClientState();
 }
@@ -170,6 +179,7 @@ class _HomePageClientState extends State<HomePageClient> {
 }
 
 class HomePageR extends StatefulWidget {
+
   @override
   _HomePageRState createState() => _HomePageRState();
 }
@@ -178,11 +188,22 @@ class _HomePageRState extends State<HomePageR> {
   int _currentIndex = 0;
 
   final List<Widget> _pages = [
-    HomeScreen(),        // The main home page widget
-    ProfilePage(),
-    FavorisPage(),
-    ChartPage(),
+    // HomeScreen(userViewModel: Widget.userViewModel), 
+    // ProfilePage(),
+    // FavorisPage(),
+    // ChartPage(),
   ];
+
+   @override
+  void initState() {
+    super.initState();
+    _pages.addAll([
+      HomeScreen(), 
+      ProfilePage(),
+      FavorisPage(),
+      ChartPage(),
+    ]);
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -227,9 +248,13 @@ class _HomePageRState extends State<HomePageR> {
 }
 
 class HomeScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
+    final userViewModel = Provider.of<UserViewModel>(context);
+    final name = userViewModel.getName;
+    final email = userViewModel.getEmail;
+    print('name: {$name}');
+
     return 
     Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -285,14 +310,14 @@ Padding(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Bonjour, Assem',
+                        name,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Text(
-                        'assem@gmail.com',
+                        email,
                         style: TextStyle(
                           fontSize: 11,
                           color: Colors.grey,
