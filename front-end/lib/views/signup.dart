@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meald/viewmodels/signup_view_model.dart';
+import 'package:meald/services/AuthService.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -9,12 +9,35 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-  final SignupViewModel viewModel = SignupViewModel();
+  late String name;
+  late String email;
+  late String password;
+  late String confirmPassword;
+  final _formKey = GlobalKey<FormState>();
 
-  @override
-  void dispose() {
-    viewModel.dispose();
-    super.dispose();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+
+  void _signup() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+
+      if (_passwordController.text != _confirmPasswordController.text) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Les mots de passe ne correspondent pas')),
+        );
+        return;
+      }
+
+      final response = await Authservice.signup(
+        _nameController.text,
+        _emailController.text,
+        _passwordController.text,
+        context,
+      );
+    }
   }
 
   Widget _button() {
@@ -27,9 +50,7 @@ class _SignupState extends State<Signup> {
         borderRadius: BorderRadius.circular(15),
       ),
       child: ElevatedButton(
-        onPressed: () {
-          viewModel.signup(context);
-        },
+        onPressed: _signup,
         child: Text(
           "S'inscrire",
           style: TextStyle(
@@ -59,147 +80,184 @@ class _SignupState extends State<Signup> {
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 30),
-                Text(
-                  "Nom",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 15,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(240, 245, 250, 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    controller: viewModel.nameController,
-                    decoration: InputDecoration(
-                      hintText: "Entez Votre Nom",
-                      border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+            child: Form(
+              key: _formKey,
+              onChanged: () {
+                setState(() {});
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(height: 30),
+                  Text(
+                    "Nom",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 15,
                     ),
                   ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "E-Mail",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 15,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(240, 245, 250, 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    controller: viewModel.emailController,
-                    decoration: InputDecoration(
-                      hintText: "Entrez Votre email",
-                      border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                  SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(240, 245, 250, 1),
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "Mot De Passe",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 15,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(240, 245, 250, 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    controller: viewModel.passwordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "Entrez Votre Mot De Passe",
-                      border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10),
-                Text(
-                  "ConFirmez Votre Mot De Passe",
-                  style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontSize: 15,
-                  ),
-                ),
-                SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(240, 245, 250, 1),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: TextField(
-                    controller: viewModel.confirmPasswordController,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      hintText: "Entrez Votre Mot De Passe",
-                      border: InputBorder.none,
-                      contentPadding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 15),
-                    ),
-                  ),
-                ),
-                SizedBox(height: 20),
-                _button(),
-                SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Vous Avez Deja Un Compte?",
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
+                    child: TextFormField(
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        hintText: "Entrez Votre Nom",
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                       ),
-                    ),
-                    SizedBox(width: 10),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed('/Login');
+                      onSaved: (String? value) {
+                        name = value!;
                       },
-                      child: Text(
-                        "Se Connecter",
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Entrer votre nom";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "E-Mail",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(240, 245, 250, 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextFormField(
+                      controller: _emailController,
+                      decoration: InputDecoration(
+                        hintText: "Entrez Votre Email",
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      ),
+                      onSaved: (String? value) {
+                        email = value!;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Entrer votre email";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Mot De Passe",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(240, 245, 250, 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextFormField(
+                      controller: _passwordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: "Entrez Votre Mot De Passe",
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      ),
+                      onSaved: (String? value) {
+                        password = value!;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Entrer votre mot de passe";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    "Confirmez Votre Mot De Passe",
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontSize: 15,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(240, 245, 250, 1),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: TextFormField(
+                      controller: _confirmPasswordController,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        hintText: "Entrez Votre Mot De Passe",
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+                      ),
+                      onSaved: (String? value) {
+                        confirmPassword = value!;
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return "Confirmez votre mot de passe";
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  _button(),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Vous Avez Déjà Un Compte?",
                         style: TextStyle(
-                          color: Color.fromARGB(255, 255, 70, 3),
-                          fontSize: 16,
+                          color: Colors.grey,
+                          fontSize: 14,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    )
-                  ],
-                ),
-                SizedBox(height: 50),
-              ],
+                      SizedBox(width: 10),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/Login');
+                        },
+                        child: Text(
+                          "Se Connecter",
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 255, 70, 3),
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

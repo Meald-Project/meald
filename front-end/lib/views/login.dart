@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:meald/viewmodels/login_view_model.dart';
-import 'package:meald/viewmodels/user_view_model.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:meald/services/AuthService.dart';
+import 'package:meald/services/UserService.dart';
 
 class Login extends StatefulWidget {
+  
   const Login({Key? key}) : super(key: key);
 
   @override
@@ -10,13 +12,23 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  late final LoginViewModel viewModel;
+  late String email;
+  late String password;
+  final _formKey = GlobalKey<FormState>();
 
-  @override
-  void initState() {
-    super.initState();
-    final userViewModel = UserViewModel(); 
-    viewModel = LoginViewModel(userViewModel: userViewModel); 
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  
+  final userdata = GetStorage();
+
+  void _login() {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      userdata.write('isLogged', true);
+
+      Authservice.login(_emailController.text,_passwordController.text,context);
+
+    }
   }
 
   Widget _button() {
@@ -29,9 +41,7 @@ class _LoginState extends State<Login> {
         borderRadius: BorderRadius.circular(15),
       ),
       child: ElevatedButton(
-        onPressed: () {
-          viewModel.login(context);
-        },
+        onPressed: _login,
         child: Text(
           'Se Connecter',
           style: TextStyle(
@@ -47,20 +57,25 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget _inputs() {
-    return Expanded(
-      child: Container(
-        width: double.infinity,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-          color: Theme.of(context).colorScheme.surface,
+ Widget _inputs() {
+  return Expanded(
+    child: Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(30),
+          topRight: Radius.circular(30),
         ),
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        color: Theme.of(context).colorScheme.surface,
+      ),
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Form(
+            key: _formKey,
+            onChanged: () {
+              setState(() {}); 
+            },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -80,13 +95,22 @@ class _LoginState extends State<Login> {
                     color: Color.fromRGBO(240, 245, 250, 1),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextField(
-                    controller: viewModel.emailController,
+                  child: TextFormField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       hintText: "Entrez votre email",
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                     ),
+                    onSaved: (String? value) {
+                      email = value!;
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Entrer votre email";
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 SizedBox(height: 10),
@@ -105,14 +129,23 @@ class _LoginState extends State<Login> {
                     color: Color.fromRGBO(240, 245, 250, 1),
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: TextField(
-                    controller: viewModel.passwordController,
+                  child: TextFormField(
+                    controller: _passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       hintText: "Entrez votre Mot De Passe",
                       border: InputBorder.none,
                       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 15),
                     ),
+                    onSaved: (String? value) {
+                      password = value!;
+                    },
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return "Entrer votre mot de passe";
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 SizedBox(height: 10),
@@ -174,8 +207,10 @@ class _LoginState extends State<Login> {
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
+
 
   @override
   Widget build(BuildContext context) {

@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:meald/viewmodels/user_view_model.dart';
+import 'package:meald/models/user.dart';
+import 'package:meald/services/UserService.dart';
 import 'package:meald/views/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../chart.dart';
 import 'favoris_page.dart';
 import 'historique_page.dart';
@@ -10,7 +12,6 @@ import 'localisations.dart';
 import 'parametres.dart';
 import 'profile_page.dart';
 
-//code
 class BottomNavBar extends StatefulWidget {
   @override
   _BottomNavBarState createState() => _BottomNavBarState();
@@ -21,9 +22,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   @override
   Widget build(BuildContext context) {
-    
     return BottomNavigationBar(
-      items: <BottomNavigationBarItem>[
+      items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
           icon: Icon(Icons.home),
           label: 'Acceuil',
@@ -41,28 +41,59 @@ class _BottomNavBarState extends State<BottomNavBar> {
           label: 'Sac',
         ),
       ],
-      selectedItemColor: Colors.orange, 
-      unselectedItemColor: Theme.of(context).colorScheme.secondary, 
-      currentIndex: _currentIndex, 
+      selectedItemColor: Colors.orange,
+      unselectedItemColor: Theme.of(context).colorScheme.secondary,
+      currentIndex: _currentIndex,
       onTap: (int index) {
         setState(() {
           _currentIndex = index;
         });
 
-        switch(index) {
+        switch (index) {
           case 1:
-         Navigator.of(context).pushNamed('/profilePage_client');
-         break;
-
+            Navigator.of(context).pushNamed('/profilePage_client');
+            break;
         }
       },
     );
   }
 }
-class SidebarPopup extends StatelessWidget {
-    final UserViewModel userViewModel;
 
-  SidebarPopup({required this.userViewModel});
+class SidebarPopup extends StatefulWidget {
+  @override
+  _SidebarPopupState createState() => _SidebarPopupState();
+}
+
+class _SidebarPopupState extends State<SidebarPopup> {
+  User user = User(
+    id: 0,
+    email: '',
+    name: '',
+    password: '',
+    adresse: '',
+    role: '',
+    telephone: '',
+  );
+
+  @override
+  void initState() {
+    super.initState();
+    fetchUser();
+  }
+
+  fetchUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var id = prefs.getInt("yey");
+
+    print("id:$id");
+    if (id != null) {
+      var response = await UserService.getUserDetails(id);
+      setState(() {
+        user = User.fromJson(response);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -77,29 +108,30 @@ class SidebarPopup extends StatelessWidget {
             children: <Widget>[
               Container(
                 color: Colors.orange,
-                height: 220, 
+                height: 220,
                 child: DrawerHeader(
-                  padding: EdgeInsets.all(0), // Remove default padding
+                  padding: EdgeInsets.all(0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                                    SizedBox(height: 60,),
+                      SizedBox(height: 60),
                       CircleAvatar(
-                        radius: 25, 
+                        radius: 25,
                         backgroundImage: NetworkImage(
-                            'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png'),
+                          'https://www.iconpacks.net/icons/2/free-user-icon-3296-thumb.png',
+                        ),
                       ),
                       SizedBox(height: 20),
                       Text(
-                        '${userViewModel.getName}',
+                        user.name??'Nom inconnu',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
                         ),
-                      ), 
+                      ),
                       Text(
-                        '${userViewModel.getEmail}',
+                        user.email?? 'Email inconnu',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 12,
@@ -109,13 +141,12 @@ class SidebarPopup extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 100,),
+              SizedBox(height: 100),
               buildDrawerItem(context, Icons.favorite, 'Mes Favories', FavorisPage()),
               buildDrawerItem(context, Icons.history, 'Historique', HistoryPage()),
               buildDrawerItem(context, Icons.location_on, 'Localisations', LocalisationsPage()),
               buildDrawerItem(context, Icons.settings, 'Paramètres', ParametresPage()),
               buildDrawerItem(context, Icons.exit_to_app, 'Deconnecter', Login()),
-
             ],
           ),
         ),
@@ -127,7 +158,7 @@ class SidebarPopup extends StatelessWidget {
     return ListTile(
       leading: Icon(
         icon,
-        size: 30, 
+        size: 30,
       ),
       title: Text(
         title,
@@ -144,9 +175,8 @@ class SidebarPopup extends StatelessWidget {
     );
   }
 }
+
 class HomePageClient extends StatefulWidget {
-  final UserViewModel userViewModel;
-  HomePageClient({required this.userViewModel});
 
   @override
   _HomePageClientState createState() => _HomePageClientState();
@@ -159,7 +189,7 @@ class _HomePageClientState extends State<HomePageClient> {
     Future.delayed(Duration(seconds: 4), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => HomePageR(userViewModel: widget.userViewModel)),
+        MaterialPageRoute(builder: (context) => HomePageR()),
       );
     });
   }
@@ -169,7 +199,7 @@ class _HomePageClientState extends State<HomePageClient> {
     return Scaffold(
       body: Center(
         child: Image.asset(
-          'assets/Logo.gif', // Adjusted path for local assets
+          'assets/Logo.gif',
           height: 130,
           width: 130,
         ),
@@ -179,10 +209,6 @@ class _HomePageClientState extends State<HomePageClient> {
 }
 
 class HomePageR extends StatefulWidget {
-  final UserViewModel userViewModel;
-
-  HomePageR({required this.userViewModel});
-
   @override
   _HomePageRState createState() => _HomePageRState();
 }
@@ -190,23 +216,13 @@ class HomePageR extends StatefulWidget {
 class _HomePageRState extends State<HomePageR> {
   int _currentIndex = 0;
 
-  final List<Widget> _pages = [
-    // HomeScreen(userViewModel: Widget.userViewModel), 
-    // ProfilePage(),
-    // FavorisPage(),
-    // ChartPage(),
-  ];
 
-   @override
-  void initState() {
-    super.initState();
-    _pages.addAll([
-      HomeScreen(userViewModel: widget.userViewModel), 
+  final List<Widget> _pages = [      
+      HomeScreen(),
       ProfilePage(),
       FavorisPage(),
       ChartPage(),
-    ]);
-  }
+    ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -223,7 +239,7 @@ class _HomePageRState extends State<HomePageR> {
         children: _pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
+        items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Acceuil',
@@ -250,116 +266,149 @@ class _HomePageRState extends State<HomePageR> {
   }
 }
 
-class HomeScreen extends StatelessWidget {
-  final UserViewModel userViewModel;
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
-  HomeScreen({required this.userViewModel});
+class _HomeScreenState extends State<HomeScreen> {
+  
+  User user = User(
+    id: 0,
+    email: '',
+    name: '',
+    password: '',
+    adresse: '',
+    role: '',
+    telephone: '',
+  );
+
+@override
+  void initState() {
+    super.initState();
+    fetchUser();
+  }
+
+  fetchUser() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    print("Stored keys: ${prefs.getKeys()}");
+
+        var id = prefs.getInt("yey");
+
+    print("id:$id");
+    if (id != null) {
+      var response = await UserService.getUserDetails(id );
+      setState(() {
+        user = User.fromJson(response);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return 
-    Scaffold(
+    return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
-      body: SingleChildScrollView( child:Column(
-        children: [
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 0.0), 
-  child: Container(
-    decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.onError,
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.5),
-          spreadRadius: 1,
-          blurRadius: 5,
-          offset: Offset(0, 3),
-        ),
-      ],
-    ),
-    child: Padding(
-      padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      showCupertinoModalPopup(
-                        context: context,
-                        builder: (BuildContext context) => SidebarPopup(userViewModel: userViewModel),
-                      );
-                    },
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 226, 225, 225),
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                      child: Icon(
-                        Icons.menu,
-                        color: Colors.black,
-                        size: 20,
-                      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onError,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: Offset(0, 3),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Column(
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
+                  child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        '${userViewModel.getName}',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  showCupertinoModalPopup(
+                                    context: context,
+                                    builder: (BuildContext context) => SidebarPopup(),
+                                  );
+                                },
+                                child: Container(
+                                  width: 40,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: Color.fromARGB(255, 226, 225, 225),
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  child: Icon(
+                                    Icons.menu,
+                                    color: Colors.black,
+                                    size: 20,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    user.name ?? 'Nom inconnu', 
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    user.email??'Email inconnu',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      color: Colors.grey,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (context) => ChartPage()),
+                              );
+                            },
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: Color.fromARGB(255, 226, 225, 225),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              child: Icon(
+                                Icons.shopping_bag,
+                                color: Colors.black,
+                                size: 20,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                      Text(
-                        '${userViewModel.getEmail}',
-                        style: TextStyle(
-                          fontSize: 11,
-                          color: Colors.grey,
-                        ),
-                      ),
+                      SizedBox(height: 10),
                     ],
-                  ),
-                ],
-              ),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => ChartPage()),
-               );
-                },
-                child: Container(
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Color.fromARGB(255, 2, 1, 49),
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Icon(
-                    Icons.shopping_bag,
-                    color: Colors.white,
-                    size: 20,
                   ),
                 ),
               ),
-            ],
-          ),
-          SizedBox(height: 10),
-        ],
-      ),
-    ),
-  ),
-), SizedBox(height: 10),
-        
-          Container(
+            ),
+            SizedBox(height: 10),
+             Container(
           padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
              color: Theme.of(context).colorScheme.onError,
@@ -396,8 +445,7 @@ Padding(
           contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         ),
       ),
-    ),
-SizedBox(height: 20),
+    ),SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
