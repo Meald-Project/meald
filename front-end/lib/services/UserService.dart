@@ -42,7 +42,6 @@ static Future<void> login(String email, String password, BuildContext context) a
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
 
-      // Extract user details safely
       final user = responseData['user'];
       final role = user['role'] as String?;
 
@@ -50,7 +49,6 @@ static Future<void> login(String email, String password, BuildContext context) a
       if (user['user_id'] != null) {
         pref.setInt('yey', user['user_id'] as int);
       } else {
-        // Handle missing user_id appropriately
         print('User ID is null');
       }
 

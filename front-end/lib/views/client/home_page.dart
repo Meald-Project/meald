@@ -368,14 +368,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    user.name ?? 'Nom inconnu', // Display actual username
+                                    user.name ?? 'Nom inconnu', 
                                     style: TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   Text(
-                                    user.email??'Email inconnu', // Display actual email
+                                    user.email??'Email inconnu',
                                     style: TextStyle(
                                       fontSize: 11,
                                       color: Colors.grey,
