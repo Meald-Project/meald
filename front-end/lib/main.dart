@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:meald/viewmodels/user_view_model.dart';
 import 'package:meald/views/login.dart';
 import 'views/client/home_page.dart';
@@ -18,7 +19,8 @@ import 'package:meald/viewmodels/footer_view_model.dart'; // Assurez-vous d'impo
 import 'package:provider/provider.dart';
 import '../widgets/themes/theme_provider.dart';
 
-void main() {
+void main() async{
+  await GetStorage.init(); // Initialize GetStorage
   runApp(
     MultiProvider(
       providers: [
@@ -47,7 +49,7 @@ class MyApp extends StatelessWidget {
           routes: {
             '/': (context) => WelcomePage(),
             '/creation_article': (context) => const CreationDArticle(),
-            '/homePageClient': (context) => HomePageClient(userViewModel: UserViewModel()),
+            '/homePageClient': (context) => HomePageClient(),
             '/profilePage_client': (context) => ProfilePage(),
             '/homePage_livreur': (context) => HomePageLivreur(),
             '/homePage_restaurant': (context) => const TableauDebord(),
