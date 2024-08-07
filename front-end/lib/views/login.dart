@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:meald/services/AuthService.dart';
 import 'package:meald/services/UserService.dart';
 
 class Login extends StatefulWidget {
@@ -25,7 +26,7 @@ class _LoginState extends State<Login> {
       _formKey.currentState!.save();
       userdata.write('isLogged', true);
 
-      UserService.login(_emailController.text,_passwordController.text,context);
+      Authservice.login(_emailController.text,_passwordController.text,context);
 
     }
   }

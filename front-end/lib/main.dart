@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:meald/viewmodels/user_view_model.dart';
 import 'package:meald/views/login.dart';
 import 'views/client/home_page.dart';
 import 'views/client/profile_page.dart';

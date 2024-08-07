@@ -5,14 +5,14 @@ import 'package:http/http.dart' as http;
 
 class UserService{
   
-  static const Url = 'http://localhost:3000/api/users';
+  static const Url = 'http://localhost:3000/api/restaurants';
   static const headers = {
     'Content-type': 'application/json'
   };
 
-  static Future<dynamic> getUserDetails(int id) async {
+  static Future<dynamic> getRestoDetails(int id) async {
     final response = await http.get(
-      Uri.parse('${Url}/user/$id'),
+      Uri.parse('${Url}/restaurant/$id'),
     );
     if (response.statusCode == 200) {
       print(response.body);
