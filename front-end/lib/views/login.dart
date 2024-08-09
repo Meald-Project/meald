@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meald/viewmodels/login_view_model.dart';
+import 'package:meald/viewmodels/user_view_model.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -9,7 +10,14 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final LoginViewModel viewModel = LoginViewModel();
+  late final LoginViewModel viewModel;
+
+  @override
+  void initState() {
+    super.initState();
+    final userViewModel = UserViewModel(); 
+    viewModel = LoginViewModel(userViewModel: userViewModel); 
+  }
 
   Widget _button() {
     return Container(
