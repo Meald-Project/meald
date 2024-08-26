@@ -17,7 +17,7 @@ import 'views/restaurant/profile_resto.dart';
 import 'package:meald/viewmodels/footer_view_model.dart'; // Assurez-vous d'importer le ViewModel
 import 'package:provider/provider.dart';
 import '../widgets/themes/theme_provider.dart';
-
+import 'views/livreur/commandes_page.dart';
 void main() {
   runApp(
     MultiProvider(
@@ -45,19 +45,21 @@ class MyApp extends StatelessWidget {
           theme: themeProvider.currentTheme,
           initialRoute: '/',
           routes: {
-            '/': (context) => WelcomePage(),
-            '/creation_article': (context) => const CreationDArticle(),
-            '/homePageClient': (context) => HomePageClient(userViewModel: UserViewModel()),
-            '/profilePage_client': (context) => ProfilePage(),
-            '/homePage_livreur': (context) => HomePageLivreur(),
-            '/homePage_restaurant': (context) => const TableauDebord(),
-            '/Signup': (context) => Signup(),
-            '/Login': (context) => Login(),
-            '/Role': (context) => FourthPage(),
-            '/Creatresto': (context) => CreationDeRestaurant(),
-            '/Notif': (context) => NotificationScreen(),
-            '/Profile': (context) => ProfileResto(),
-            '/List': (context) => Liste(),
+                        '/': (context) => CommandesPage(),
+
+            // '/': (context) => WelcomePage(),
+            // '/creation_article': (context) => const CreationDArticle(),
+            // '/homePageClient': (context) => HomePageClient(userViewModel: UserViewModel()),
+            // '/profilePage_client': (context) => ProfilePage(),
+            // '/homePage_livreur': (context) => HomePageLivreur(),
+            // '/homePage_restaurant': (context) => const TableauDebord(),
+            // '/Signup': (context) => Signup(),
+            // '/Login': (context) => Login(),
+            // '/Role': (context) => FourthPage(),
+            // '/Creatresto': (context) => CreationDeRestaurant(),
+            // '/Notif': (context) => NotificationScreen(),
+            // '/Profile': (context) => ProfileResto(),
+            // '/List': (context) => Liste(),
           },
         );
       },
